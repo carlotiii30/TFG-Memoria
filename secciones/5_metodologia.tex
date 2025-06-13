@@ -1,0 +1,99 @@
+\section{Metodología}
+
+La metodología seguida en este proyecto se ha estructurado en fases bien definidas, siguiendo un modelo en cascada adaptado, con componentes iterativos durante la implementación y evaluación de modelos. Esta elección se justifica por la necesidad de disponer de un marco claro y planificado que permitiera abordar la complejidad técnica del problema, sin renunciar a la flexibilidad necesaria en tareas de investigación experimental. El enfoque ha combinado la planificación estructurada con decisiones ágiles en momentos clave, permitiendo adaptarse a las limitaciones computacionales y a la evolución natural del trabajo técnico.
+
+\subsection{Enfoque metodológico}
+
+La estructura metodológica constó de las siguientes etapas:
+
+\begin{itemize}
+\item \textbf{Análisis:} Revisión del estado del arte en CBIR, TBIR y generación de imágenes a partir de texto. Se investigaron tanto los fundamentos teóricos como implementaciones reales de modelos generativos, sistemas de recuperación de imágenes y técnicas de preprocesamiento de texto.
+
+
+\item \textbf{Diseño:} Selección de arquitecturas candidatas (GAN, cGAN, AttnGAN, Stable Diffusion), definición de criterios de evaluación (precisión visual, coherencia semántica, coste computacional), selección de datasets y definición de flujos de trabajo para comparar cada modelo en condiciones controladas.
+
+\item \textbf{Implementación:} Desarrollo de experimentos con múltiples modelos generativos. Cada arquitectura se entrenó o adaptó con un conjunto de datos específico. Se incluyó registro exhaustivo de parámetros, tiempos de ejecución, fallos y observaciones para garantizar la trazabilidad del proceso.
+
+\item \textbf{Evaluación:} Los resultados fueron analizados mediante métodos cualitativos (evaluación visual, revisión semántica de correspondencia texto-imagen, análisis de fidelidad perceptiva) y cuantitativos ligeros (evolución de la función de pérdida). Se comparó la calidad visual, la estabilidad del modelo, la sensibilidad a la semilla y el tiempo de respuesta.
+
+
+\end{itemize}
+
+\subsection{Herramientas y tecnologías utilizadas}
+
+Dado el entorno académico y las restricciones de acceso a hardware dedicado, se priorizó el uso de herramientas flexibles, reproducibles y ampliamente utilizadas en la comunidad científica:
+
+\begin{itemize}
+\item \textbf{Lenguaje de programación:} Python 3.10, por su compatibilidad con la mayoría de librerías de deep learning modernas y por su amplio soporte para prototipado rápido y visualización.
+
+
+\item \textbf{Frameworks:} PyTorch fue el framework principal, por su facilidad para modificar arquitecturas, acceso a modelos preentrenados y mejor integración con herramientas modernas (como Hugging Face Diffusers). TensorFlow se usó exclusivamente en etapas tempranas para pruebas con cGAN. FastAPI se empleó para exponer los modelos generativos mediante una API REST, facilitando su integración con plataformas externas como JMR.
+
+\item \textbf{Plataformas de ejecución:} 
+    \begin{itemize}
+        \item \textbf{Google Colab Pro:} se utilizó para entrenamientos intensivos de corta duración y ejecución de modelos preentrenados como Stable Diffusion. Su acceso a GPUs potentes (como T4 o A100) permitió ejecutar ciclos de entrenamiento y generación de imágenes en tiempos razonables. Además, el entorno ofrecía soporte para cuadernos colaborativos, lo cual facilitó el desarrollo iterativo y la compartición de experimentos.
+        
+        \item \textbf{Kaggle:} se empleó como entorno complementario, especialmente útil para la ejecución por lotes y el entrenamiento de modelos menos exigentes como AttnGAN. A pesar de la limitación semanal de tiempo en GPU (30 horas), su integración con notebooks versionables y datasets alojados facilitó el control de experimentos. También resultó útil para entrenar modelos con datasets más pesados sin necesidad de configuraciones locales complejas.
+        
+        \item \textbf{Local:} el desarrollo y pruebas ligeras se realizaron en un MacBook Pro de 2019, sin GPU dedicada. Esta limitación motivó la implementación de flujos de trabajo optimizados, con procesamiento por lotes pequeños, validación parcial de scripts y uso intensivo de mock datasets para pruebas funcionales. Asimismo, se aprovechó este entorno para tareas de preprocesamiento textual, visualización de resultados y despliegue de pruebas de API mediante FastAPI.
+    \end{itemize}
+
+\item \textbf{Gestión de entornos:} Uso de \texttt{Poetry} para la creación de entornos virtuales aislados y control exacto de versiones de librerías, lo cual permitió reproducir los experimentos a lo largo del tiempo y evitar conflictos de dependencias.
+
+\item \textbf{Visualización:} Matplotlib y Seaborn se emplearon para representar gráficas de pérdidas, evolución de métricas y comparación de resultados. También se usó PIL para el procesamiento y visualización de imágenes generadas.
+
+\item \textbf{Diseño de interfaz:} Figma fue utilizado para prototipar la integración visual de la aplicación generativa en la plataforma JMR, facilitando el diseño de la experiencia de usuario y la validación temprana de flujos.
+
+
+\end{itemize}
+
+\subsection{Datasets utilizados}
+
+Se utilizó una variedad de datasets, seleccionados en función del objetivo del experimento (baja, media y alta complejidad):
+
+\begin{itemize}
+\item \textbf{MNIST:} dataset sencillo de imágenes de dígitos manuscritos. Se utilizó para validar el funcionamiento básico de arquitecturas GAN y cGAN y observar el comportamiento en entornos sin complejidad semántica.
+
+
+\item \textbf{CIFAR-10 y CIFAR-100:} se emplearon para trabajar con imágenes a color y múltiples clases. Permitieron experimentar con generación condicional usando etiquetas y observar la capacidad de los modelos para diferenciar categorías con ruido limitado.
+
+\item \textbf{COCO:} dataset clave para tareas de texto a imagen. Gracias a sus múltiples captions por imagen, fue ideal para entrenar modelos como AttnGAN o probar prompts en Stable Diffusion. Se seleccionaron subconjuntos balanceados debido a limitaciones computacionales.
+
+\item \textbf{Stanford Dogs:} conjunto especializado, con alto grado de variación visual intra-clase. Se utilizó para comprobar si los modelos preentrenados eran capaces de capturar detalles finos cuando el prompt incluía atributos específicos (raza, color, postura).
+
+\end{itemize}
+
+\subsection{Modelos y arquitecturas exploradas}
+
+Se probaron cuatro enfoques principales:
+
+\begin{itemize}
+\item \textbf{GAN:} arquitectura básica para familiarización con la estructura generador-discriminador. Se entrenó desde cero con MNIST.
+
+
+\item \textbf{cGAN:} variante condicional en la que el generador recibe una etiqueta como entrada. Se usó con CIFAR-10 para verificar la generación dirigida. Las pruebas evidenciaron inestabilidad y poca precisión sin ajustes complejos.
+
+\item \textbf{AttnGAN:} modelo avanzado con mecanismo de atención para mapear palabras del texto a regiones de la imagen. Se utilizó versión preentrenada, con pruebas sobre COCO. Los resultados mejoraron notablemente la coherencia semántica con respecto a cGAN.
+
+\item \textbf{Stable Diffusion:} modelo basado en difusión latente, altamente estable y con gran capacidad semántica. Se utilizó en dos versiones (v1.5 y XL) para generar imágenes a partir de descripciones tanto simples como especializadas. Se evaluaron tiempo de generación, coherencia semántica y calidad visual.
+
+\end{itemize}
+
+\subsection{Justificación técnica y decisiones adoptadas}
+
+Durante la ejecución se tomaron decisiones clave para mantener la viabilidad técnica sin comprometer la profundidad experimental:
+
+\begin{itemize}
+\item \textbf{Cambio de framework:} la elección de PyTorch frente a TensorFlow permitió trabajar con arquitecturas como AttnGAN y acceder a modelos y scripts actualizados con mejor documentación y soporte.
+
+\item \textbf{Uso de modelos preentrenados:} dado que entrenar desde cero modelos como AttnGAN o SD requiere semanas en entornos con GPU, se optó por usar pesos preentrenados oficiales, garantizando consistencia en los resultados y permitiendo centrar el análisis en la interacción texto-imagen.
+
+\item \textbf{Reducción de tamaño de datasets:} para entrenamientos rápidos y comparaciones ágiles, se crearon subconjuntos de COCO con variedad semántica. Esto permitió obtener resultados interpretables en menos tiempo.
+
+\item \textbf{Selección de prompts:} en las pruebas con SD se diseñaron prompts de distinta longitud, estilo y precisión para evaluar cómo el modelo respondía ante distintos niveles de detalle lingüístico.
+
+\item \textbf{Evaluación iterativa:} cada prueba se acompañó de visualización de resultados, almacenamiento de outputs, y revisión subjetiva por parte de la autora y otros usuarios, para estimar la calidad percibida y la fidelidad del modelo al texto.
+
+\item \textbf{Documentación del proceso:} todas las pruebas fueron registradas (scripts, configuraciones, checkpoints, ejemplos generados) para garantizar la reproducibilidad de los resultados y facilitar el análisis posterior en la memoria.
+
+\end{itemize}

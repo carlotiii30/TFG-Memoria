@@ -1,0 +1,67 @@
+\section{Desarrollo}
+\input{secciones/trabajo/5_api}
+
+\subsection{Pruebas y validación}
+
+\subsection{Consideraciones de seguridad y rendimiento}
+
+Durante el desarrollo del sistema de generación de imágenes, se han contemplado múltiples aspectos relacionados con la seguridad del servicio, la gestión del entorno de ejecución, la optimización del rendimiento y la preparación para entornos de producción. Estas consideraciones resultan fundamentales para garantizar la integridad de los datos, la reproducibilidad de los experimentos y la escalabilidad futura del sistema en contextos reales.
+
+\subsubsection{Gestión del entorno con Poetry}
+
+Para asegurar un entorno de ejecución reproducible, coherente y fácilmente desplegable, se ha utilizado \textbf{Poetry} como gestor de dependencias y empaquetado. Esta herramienta ha permitido:
+
+\begin{itemize}
+    \item Especificar con precisión las versiones de todas las librerías utilizadas, como \texttt{diffusers}, \texttt{transformers}, \texttt{torch}, \texttt{Pillow}, entre otras, evitando incompatibilidades entre ellas.
+    \item Garantizar la replicabilidad del entorno en distintas máquinas mediante los archivos \texttt{pyproject.toml} y \texttt{poetry.lock}, facilitando el trabajo colaborativo o la migración a servidores externos.
+    \item Aislar completamente el entorno de desarrollo de otras instalaciones globales de Python, reduciendo el riesgo de conflictos entre proyectos.
+    \item Preparar el proyecto para su distribución como paquete Python, en caso de que se quisiera liberar o integrar como dependencia en otros sistemas.
+\end{itemize}
+
+\subsubsection{Seguridad en la API REST}
+
+Dado que el sistema de generación se expone a través de una interfaz web (API REST), es fundamental considerar posibles vectores de ataque relacionados con el envío de solicitudes maliciosas, el uso no autorizado o la exposición de recursos sensibles. Aunque esta versión del sistema no incluye mecanismos avanzados de autenticación o autorización, se han implementado algunas medidas preliminares de validación estructural y se identifican los siguientes aspectos clave para futuras iteraciones:
+
+\begin{itemize}
+    \item \textbf{Validación de entradas:} actualmente, FastAPI permite tipado estático de parámetros, pero no se han definido aún restricciones estrictas sobre la longitud o estructura de los textos recibidos. Esto puede derivar en uso abusivo o errores inesperados ante entradas malformadas. Se recomienda implementar validaciones adicionales a nivel de contenido y lógica.
+    
+    \item \textbf{Validación de estructura de modelos:} se ha incorporado un sistema de validación estructural para los modelos subidos por el usuario. Esta validación, implementada mediante la función \texttt{validate\_model\_structure}, comprueba que la carpeta del modelo contenga todos los subdirectorios y archivos esperados —como \texttt{config.json}, \texttt{model.safetensors}, o \texttt{tokenizer\_config.json}—. Si falta alguno de estos elementos, se lanza una excepción \texttt{HTTPException} con un código de error 400, evitando así el uso de modelos incompletos o manipulados que puedan comprometer el funcionamiento del sistema.
+
+    \item \textbf{Control del acceso a archivos:} actualmente no se ha desarrollado un sistema de permisos que restrinja el acceso directo a imágenes generadas o modelos almacenados. El sistema confía en una organización interna de rutas, lo cual no es suficiente para prevenir accesos arbitrarios si la API se expusiera públicamente. Se recomienda proteger los endpoints y establecer rutas temporales con tokens de acceso.
+
+    \item \textbf{Límites de uso:} el servicio no impone cuotas por usuario, IP ni número de peticiones. En un entorno expuesto, esto puede derivar en ataques de denegación de servicio (DoS) o consumo excesivo de recursos. Se recomienda implementar mecanismos como rate limiting, autenticación básica o tokens temporales.
+
+    \item \textbf{Manejo de errores:} aunque FastAPI ofrece gestión automática de errores comunes, no se ha personalizado la respuesta ante excepciones críticas. Actualmente, algunos errores podrían devolver trazas del servidor, lo que podría exponer rutas internas o detalles sensibles del sistema. Se sugiere capturar explícitamente excepciones clave y devolver mensajes controlados y neutros.
+\end{itemize}
+
+En resumen, aunque el sistema aún no está preparado para un entorno productivo expuesto, ya se han incorporado medidas preventivas como la validación estructural de modelos, que garantiza la integridad mínima antes de permitir su ejecución. Estas medidas constituyen una base sobre la que construir mecanismos más robustos de autenticación, protección de recursos y resiliencia frente a ataques externos.
+
+Todas estas cuestiones han sido tenidas en cuenta de cara a un posible despliegue en producción. Se recomienda como trabajo futuro incorporar autenticación de usuarios, límites de uso, logs de auditoría y un tratamiento más robusto de la validación de parámetros para proteger el sistema frente a usos indebidos.
+
+
+\subsubsection{Optimización del rendimiento}
+
+Para maximizar la eficiencia del sistema, especialmente en entornos con recursos limitados, se han llevado a cabo diversas estrategias:
+
+\begin{itemize}
+    \item \textbf{Carga única del modelo}: el modelo generativo se inicializa una única vez al arrancar el servidor, evitando recargas innecesarias en cada solicitud.
+    \item \textbf{Uso eficiente del espacio en disco}: las imágenes generadas se almacenan temporalmente en disco con nombres únicos, y se reutilizan si ya existen para un mismo prompt y configuración.
+    \item \textbf{Configuración adaptable}: aunque se ha utilizado \texttt{float32} durante el desarrollo, el sistema está preparado para funcionar con \texttt{float16} o \texttt{bfloat16} en entornos con soporte, permitiendo reducir a la mitad el uso de memoria sin pérdida significativa de calidad.
+    \item \textbf{Pipeline modular}: la arquitectura permite cambiar fácilmente el modelo base, el VAE o el codificador de texto, permitiendo futuras mejoras sin afectar al resto del sistema.
+\end{itemize}
+
+\subsubsection{Preparación para producción y despliegue escalable}
+
+Aunque el presente sistema ha sido desarrollado en un entorno controlado, se han identificado y documentado las acciones necesarias para su migración a entornos reales de producción. Entre las medidas consideradas:
+
+\begin{itemize}
+    \item \textbf{Autenticación}: implementación de tokens JWT para identificar usuarios y restringir el acceso a usuarios registrados.
+    \item \textbf{Rate limiting}: limitación de solicitudes por IP o por usuario en función de cuotas diarias o mensuales.
+    \item \textbf{Contenerización}: uso de Docker para encapsular el entorno, garantizando portabilidad y facilitando el despliegue en VPS, Kubernetes o servicios cloud.
+    \item \textbf{Proxy inverso con Caddy o NGINX}: para mejorar la seguridad en las conexiones HTTP y permitir balanceo de carga entre instancias.
+    \item \textbf{Logging y monitorización}: integración de herramientas de seguimiento de logs y métricas del sistema para supervisar el uso real del servicio.
+\end{itemize}
+
+\subsubsection{Reflexión final}
+
+Estas medidas y estrategias no solo han permitido desarrollar un sistema funcional en el presente, sino que establecen las bases para una posible evolución futura hacia un servicio robusto y escalable. La combinación de buenas prácticas en gestión de entornos, principios básicos de seguridad y una arquitectura eficiente posiciona este proyecto como un prototipo avanzado, listo para crecer hacia escenarios reales de uso y despliegue institucional o comercial.

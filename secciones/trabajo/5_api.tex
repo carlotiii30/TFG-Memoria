@@ -1,0 +1,65 @@
+\subsection{Implementación de la API para la Generación de Imágenes}
+Uno de los objetivos principales del proyecto fue desarrollar un sistema que permitiera la generación de imágenes a partir de descripciones textuales, accesible desde la plataforma JMR. Para ello, se implementó una API REST utilizando el framework \textit{FastAPI}, que actúa como puente entre el sistema generativo y la interfaz de usuario.
+
+\subsubsection{Arquitectura de la API}
+La API está diseñada para ser modular, escalable y fácil de integrar en otros sistemas. Se compone de los siguientes módulos:
+
+\begin{itemize}
+    \item \textbf{Módulo de generación de imágenes}: Invoca al modelo de difusión para generar imágenes a partir de texto.
+    \item \textbf{Módulo de gestión de modelos}: Permite subir, eliminar o listar modelos disponibles en el sistema.
+    \item \textbf{Interfaz RESTful}: Expone los endpoints que facilitan la comunicación con el sistema.
+\end{itemize}
+
+\subsubsection{Endpoints implementados}
+\paragraph{Generación de imágenes}
+\begin{itemize}
+    \item \textbf{POST /images/generate/}
+    \begin{itemize}
+        \item \textbf{Descripción:} genera una imagen a partir de una descripción textual.
+        \item \textbf{Entrada (JSON):}
+        \begin{itemize}
+            \item \texttt{model\_name} (opcional, por defecto \texttt{stable\_modified})
+            \item \texttt{prompt} (requerido)
+            \item \texttt{num\_inference\_steps} (opcional, por defecto 50)
+            \item \texttt{guidance\_scale} (opcional, por defecto 7.5)
+        \end{itemize}
+        \item \textbf{Salida:} JSON con la ruta de la imagen generada.
+    \end{itemize}
+
+    \item \textbf{GET /images/download/\{image\_name\}}
+    \begin{itemize}
+        \item \textbf{Descripción:} descarga una imagen generada.
+        \item \textbf{Entrada:} nombre del archivo.
+        \item \textbf{Salida:} archivo binario de imagen.
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Gestión de modelos}
+\begin{itemize}
+    \item \textbf{POST /models/upload/}
+    \begin{itemize}
+        \item \textbf{Descripción:} permite subir un nuevo modelo en formato ZIP.
+        \item \textbf{Entrada:} archivo ZIP.
+        \item \textbf{Salida:} JSON de confirmación y ruta del modelo.
+    \end{itemize}
+
+    \item \textbf{DELETE /models/delete/\{model\_name\}}
+    \begin{itemize}
+        \item \textbf{Descripción:} elimina un modelo previamente subido.
+        \item \textbf{Entrada:} nombre del modelo.
+        \item \textbf{Salida:} mensaje de confirmación.
+    \end{itemize}
+
+    \item \textbf{GET /models/list/}
+    \begin{itemize}
+        \item \textbf{Descripción:} devuelve un listado de todos los modelos disponibles.
+        \item \textbf{Entrada:} ninguna.
+        \item \textbf{Salida:} JSON con los nombres de los modelos.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Flujo de interacción}
+El usuario introduce una descripción textual en la interfaz de JMR. Esta es enviada mediante un endpoint POST a la API, que responde con una imagen generada. La API también permite gestionar modelos a través de otros endpoints, manteniendo así un sistema flexible y ampliable.
+
+\subsubsection{Conclusión}
+La API desarrollada con FastAPI proporciona una interfaz sólida y extensible para la generación de imágenes. Su diseño modular permite una integración fluida con la plataforma JMR, facilitando la evolución futura del sistema y permitiendo su adaptación a nuevos modelos o mejoras.

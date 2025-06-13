@@ -1,0 +1,57 @@
+\subsection{Primera aproximación: GAN}
+
+Como punto de partida en el desarrollo del sistema generativo, se optó por implementar una Red Generativa Adversaria (GAN) clásica. Esta elección respondió a su simplicidad conceptual y a la extensa documentación existente que la convierte en una excelente base para experimentar con modelos generativos. La implementación inicial permitió adquirir una comprensión profunda del funcionamiento adversarial entre el generador y el discriminador, y sentar las bases para una posterior transición hacia arquitecturas más avanzadas.
+
+Las GANs tradicionales operan sin condicionamiento explícito, es decir, generan imágenes sin ningún tipo de control externo sobre el contenido. Si bien esto limita la aplicabilidad directa para sistemas de búsqueda visual guiados por texto, su valor como primera aproximación radicó en que permitieron validar el flujo de entrenamiento, optimizar el entorno de ejecución y establecer un punto de referencia inicial de calidad de las imágenes generadas.
+
+\subsubsection{Librerías, herramientas y datasets}
+
+Para la implementación se utilizaron \textbf{Keras} y \textbf{TensorFlow}, dos frameworks ampliamente adoptados en la comunidad de aprendizaje profundo. Keras, con su API de alto nivel, facilitó la definición de modelos de forma modular y legible, mientras que TensorFlow proporcionó soporte para operaciones eficientes en GPU y una gestión estable del grafo computacional. Esta combinación permitió iterar rápidamente en la definición y entrenamiento de las redes.
+
+En cuanto a los datos, se seleccionaron dos conjuntos integrados en la propia librería de Keras: \textbf{CIFAR-10} y \textbf{CIFAR-100}. Ambos constan de 60.000 imágenes a color de resolución 32x32 píxeles, distribuidas equitativamente entre clases. CIFAR-10 contiene 10 categorías genéricas (como coches, animales, aviones), lo que lo convierte en un dataset óptimo para pruebas preliminares. Por su parte, CIFAR-100 agrupa las imágenes en 100 clases más específicas, lo que representa un desafío considerable mayor para la generalización del modelo generador.
+
+\subsubsection{Pruebas y resultados}
+
+La arquitectura definida para esta fase inicial consistió en una red generativa compuesta por varias capas convolucionales transpuestas, activadas con \texttt{ReLU}, que transformaban un vector latente aleatorio de 100 dimensiones en una imagen RGB de 32x32 píxeles. El discriminador, en contrapartida, estaba constituido por una red con capas convolucionales convencionales y activaciones \texttt{LeakyReLU}, cuya salida final indicaba la probabilidad de que una imagen fuese real o generada.
+
+Durante el entrenamiento con CIFAR-10 se llevaron a cabo múltiples iteraciones para estudiar el comportamiento del modelo:
+
+En una primera fase experimental, se utilizó una tasa de aprendizaje de 0.0002 junto con el optimizador \texttt{Adam}, obteniéndose imágenes que reflejaban estructuras rudimentarias, pero carecían de nitidez y riqueza de detalle. Uno de los primeros hallazgos fue que el discriminador aprendía más rápidamente que el generador, generando un desequilibrio que provocaba el estancamiento del entrenamiento.
+
+Para mitigar este efecto, se redujo la tasa de aprendizaje a 0.0001, lo que produjo una convergencia más suave. Sin embargo, las imágenes seguían mostrando ruido y distorsiones. En una tercera iteración, se decidió aumentar la capacidad del generador, introduciendo capas adicionales e incrementando la dimensionalidad de las capas intermedias. Este ajuste permitió generar imágenes ligeramente más definidas, aunque seguían siendo poco coherentes a nivel semántico.
+
+Con el dataset CIFAR-100, el proceso se replicó bajo condiciones similares. No obstante, el salto en complejidad del conjunto de datos se tradujo en mayores dificultades para el modelo. En las etapas iniciales, las imágenes generadas eran considerablemente más borrosas y la red mostraba dificultades para aprender patrones distinguibles. Para contrarrestar el sobreajuste del discriminador, se introdujeron capas \texttt{Dropout} y se aplicaron nuevas reducciones a la tasa de aprendizaje. Se exploraron, además, modificaciones estructurales en el generador, como la inclusión de \texttt{BatchNormalization} y ajustes en las funciones de activación, pero sin éxito significativo en la calidad final.
+
+Los resultados más representativos de estos experimentos se sintetizan en la Tabla~\ref{tab:gan_experimentos}, donde se detallan los principales hiperparámetros, ajustes arquitectónicos realizados y observaciones obtenidas para cada fase de entrenamiento con los datasets CIFAR-10 y CIFAR-100.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|>{\columncolor{gray!10}}p{2.8cm}|p{3.8cm}|p{4.1cm}|p{4.1cm}|}
+        \hline
+        \rowcolor{gray!30}
+        \textbf{Experimento} & \textbf{Hiperparámetros} & \textbf{Modificaciones} & \textbf{Resultados} \\
+        \hline
+        \textbf{CIFAR-10:\newline Fase 1} & LR=0.0002, Adam, 50 épocas & Arquitectura estándar de DCGAN & Imágenes básicas con baja resolución y poco detalle. \\
+        \hline
+        \textbf{CIFAR-10:\newline Fase 2} & LR=0.0001, Adam & Sin cambios en arquitectura & Mejor estabilidad, pero mucho ruido. \\
+        \hline
+        \textbf{CIFAR-10:\newline Fase 3} & LR=0.0001, más capas, mayor dimensionalidad & Generador más profundo, mayor capacidad & Ligera mejora en detalle, pero sin correspondencia clara con clases. \\
+        \hline
+        \textbf{CIFAR-100:\newline Fase 1} & LR=0.0002, Adam & Arquitectura igual que CIFAR-10 & Alta dificultad de convergencia. Imágenes más borrosas. \\
+        \hline
+        \textbf{CIFAR-100:\newline Fase 2} & LR=0.0001, Dropout en Discriminador & Regularización para evitar sobreajuste & Mejor equilibrio de pérdidas, pero sin mejora clara en calidad. \\
+        \hline
+        \textbf{CIFAR-100:\newline Fase 3} & LR=0.0001, arquitectura ampliada & Capas adicionales, mayor profundidad en generador & Imágenes aún con ruido y baja fidelidad semántica. \\
+        \hline
+    \end{tabular}
+    \caption{Resumen de experimentos con GAN: configuración y resultados}
+    \label{tab:gan_experimentos}
+\end{table}
+
+
+\subsubsection{Conclusión}
+
+La primera aproximación mediante una GAN básica resultó útil desde una perspectiva formativa y técnica: permitió familiarizarse con los ciclos de entrenamiento, con la interacción generador-discriminador y con el entorno de ejecución completo. Además, ofreció una referencia sobre la calidad base que se puede obtener sin condicionamiento.
+
+Sin embargo, también dejó patente que este enfoque no era suficiente para el objetivo del proyecto: generar imágenes condicionadas por descripciones textuales. La incapacidad de controlar el contenido generado y la baja calidad semántica de las salidas evidenciaron la necesidad de incorporar mecanismos de control explícito. Así, esta experiencia motivó el paso a la siguiente etapa: el uso de redes generativas adversarias condicionales, que permitirían introducir un vector de características (por ejemplo, proveniente de una descripción textual) como condición del proceso generativo.

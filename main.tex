@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[hyphens]{url}
+
+\usepackage[fixlanguage]{babelbib}
+\bibliographystyle{babunsrt}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\definecolor{azuloscuro}{rgb}{0.0, 0.0, 0.55}
+\usepackage{colortbl}
+
+\usepackage{graphicx} 
+\graphicspath{ {./imagenes/} }
+
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,  %color en lugar de recuadros
+  linkcolor=black,  %enlaces internos
+  urlcolor=azuloscuro,   %enlaces externos
+  citecolor=black    %bibliografia
+}
+\usepackage{url}
+
+\usepackage{wasysym}
+\usepackage[utf8]{inputenc}
+\usepackage[document]{ragged2e}
+
+\usepackage{caption}
+\usepackage{float}
+
+
+\begin{document}
+    \begin{titlepage}
+    \centering
+    {\includegraphics[width=1\textwidth]{portada/UGR}\par}
+    \vspace{1cm}
+    {\scshape\Large TRABAJO FIN DE GRADO \par}
+    \vspace{0.5cm}
+    {\bfseries INGENIERÍA INFORMÁTICA \par}
+    \vspace{1.5cm}
+    \rule{15cm}{0.1mm}\par
+    \vspace{0.3cm}
+    {\bfseries\Large DESARROLLO DE UN SISTEMA DE \par}
+    {\bfseries\Large RECUPERACIÓN DE IMÁGENES \par}
+    {\bfseries\Large BASADA EN I.A. GENERATIVA \par}
+    \vspace{0.3cm}
+    \rule{15cm}{0.1mm}\par
+    \vspace{1.5cm}
+    {\large \textbf{Autora:} \par}
+    {\large Carlota de la Vega Soriano \par}
+    \vspace{0.3cm}
+    {\large \textbf{Director:} \par}
+    {\large Jesús Chamorro Martínez \par}
+    \vspace{2cm}
+    {\includegraphics[width=0.25\textwidth]{portada/etsiit-logo}\par}
+    {\scshape\large Escuela Técnica Superior de Ingenierías Informática y Telecomunicaciones \par}
+    \vspace{0.3cm}
+    \rule{1cm}{0.1mm}\par
+    \vspace{0.3cm}
+    {Granada, junio de 2025 \par}
+\end{titlepage}
+
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+
+\input{secciones/preambulo/0_resumen}
+
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+
+\input{secciones/preambulo/1_abstract}
+
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+
+\input{secciones/preambulo/2_autorizacion}
+
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+
+\input{secciones/preambulo/3_profesor}
+
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+
+\input{secciones/preambulo/4_agradecimientos}
+
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+\clearpage\hbox{}\thispagestyle{empty}\newpage
+
+\newpage
+\tableofcontents
+
+\newpage
+\listoffigures
+
+\newpage
+\listoftables
+
+\newpage
+\input{secciones/1_introduccion}
+\input{secciones/3_objetivos}
+
+\newpage
+\input{secciones/4_planificacion}
+
+\newpage
+\input{secciones/5_metodologia}
+
+\newpage
+\part{Desarrollo de modelos}
+
+\newpage
+\input{secciones/6_estado_arte}
+
+\newpage
+\input{secciones/7_analisis}
+
+\newpage
+\input{secciones/8_experimentacion}
+
+\newpage
+\part{Desarrollo de software}
+\newpage
+\input{secciones/8_diseño}
+
+\newpage
+\input{secciones/9_trabajo}
+
+\newpage
+\input{secciones/10_conclusiones}
+
+\appendix
+
+\newpage
+\input{secciones/anexos/glosario}
+
+\newpage
+\input{secciones/anexos/manual}
+
+\newpage
+\bibliography{bibliografia}
+
+\end{document}
