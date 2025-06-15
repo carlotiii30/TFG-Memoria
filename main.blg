@@ -5,47 +5,47 @@ The style file: babunsrt.bst
 Database file #1: bibliografia.bib
 Warning--I didn't find a database entry for "liu2019medgan"
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Warning--empty language in mlc2023walkthrough
+Warning--empty language in li2021recent
 Warning--empty journal in calabuig2023modelos
-You've used 12 entries,
+You've used 15 entries,
             2465 wiz_defined-function locations,
-            640 strings with 7699 characters,
-and the built_in function-call counts, 3507 in all, are:
-= -- 241
-> -- 114
-< -- 2
-+ -- 44
-- -- 32
-* -- 383
-:= -- 415
-add.period$ -- 28
-call.type$ -- 12
-change.case$ -- 10
+            651 strings with 8273 characters,
+and the built_in function-call counts, 4874 in all, are:
+= -- 347
+> -- 155
+< -- 4
++ -- 59
+- -- 44
+* -- 534
+:= -- 558
+add.period$ -- 35
+call.type$ -- 15
+change.case$ -- 13
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 218
-empty$ -- 431
-format.name$ -- 93
-if$ -- 785
+cite$ -- 17
+duplicate$ -- 307
+empty$ -- 585
+format.name$ -- 129
+if$ -- 1101
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 10
-newline$ -- 68
-num.names$ -- 9
-pop$ -- 100
+int.to.str$ -- 15
+missing$ -- 12
+newline$ -- 81
+num.names$ -- 11
+pop$ -- 128
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 98
+skip$ -- 149
 stack$ -- 0
-substring$ -- 113
-swap$ -- 111
-text.length$ -- 2
+substring$ -- 201
+swap$ -- 167
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 17
-width$ -- 14
-write$ -- 128
+while$ -- 25
+width$ -- 17
+write$ -- 158
 (There were 3 warnings)

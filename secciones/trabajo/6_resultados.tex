@@ -4,32 +4,24 @@ Para validar la efectividad del proceso de especialización, se llevó a cabo un
 
 \subsubsection{Limitaciones del modelo base}
 
-Aunque el modelo preentrenado Stable Diffusion v1.4 proporciona resultados visuales aceptables en muchos casos, se observaron importantes deficiencias al generar imágenes de conceptos específicos poco frecuentes, como ciertas razas de perros. Estas limitaciones afectan principalmente la coherencia anatómica y el realismo visual, lo que compromete su aplicabilidad en contextos especializados.
+Aunque el modelo preentrenado Stable Diffusion proporciona resultados visuales aceptables en muchos casos, se observaron importantes deficiencias al generar imágenes de conceptos específicos. Estas limitaciones afectan principalmente la coherencia anatómica y el realismo visual, lo que compromete su aplicabilidad en contextos especializados. A modo de ejemplo, se utilizó el prompt: \textit{``a photo of a golden retriever''}.
 
-A modo de ejemplo, se utilizó el prompt:
-
-\begin{center}
-\textit{``a photo of a golden retriever''}
-\end{center}
-
-\subsubsection{Resultado con el modelo preentrenado}
-
+\paragraph{\textbf{Resultado con el modelo preentrenado}} \mbox{}\\[0.5em]
 La imagen generada por el modelo base presenta notables defectos: desalineación de los ojos, artefactos digitales en el hocico y una postura general poco natural. Aunque el color del pelaje podría sugerir la raza objetivo, la representación morfológica no es fiel ni reconocible.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{golden_retriever_before.png}
+    \includegraphics[width=0.35\textwidth]{golden_retriever_before.png}
     \caption{Resultado generado por el modelo preentrenado.}
     \label{fig:golden-before}
 \end{figure}
 
-\subsubsection{Resultado tras la especialización del modelo}
-
+\paragraph{\textbf{Resultado tras la especialización del modelo}} \mbox{}\\[0.5em]
 Tras aplicar la técnica de modificación del espacio latente, el modelo fue capaz de representar de forma mucho más precisa la raza solicitada. La imagen resultante muestra un perro con expresión realista, pelaje detallado, proporciones correctas y una pose reconocible. El resultado evidencia una mejora tanto estética como semántica.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{golden_retriever_after.png}
+    \includegraphics[width=0.35\textwidth]{golden_retriever_after.png}
     \caption{Resultado generado tras la especialización del modelo.}
     \label{fig:golden-after}
 \end{figure}
@@ -55,16 +47,18 @@ Modelo especializado & 0.9341 \\
 \label{tab:clip-golden}
 \end{table}
 
+Para facilitar la interpretación de los resultados, la Figura~\ref{fig:clip_bar} muestra una representación gráfica de los valores obtenidos. Esta visualización permite apreciar de forma más clara la diferencia de rendimiento semántico entre ambos modelos ante un mismo prompt, reflejando el impacto directo de la especialización sobre la alineación texto-imagen.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{clip-bar.png}
+    \includegraphics[width=0.4\textwidth]{clip_bar.png}
     \caption{Comparación visual del CLIP Score relativo.}
-    \label{fig:clip-bar}
+    \label{fig:clip_bar}
 \end{figure}
 
-\subsubsection{Síntesis de resultados}
+En esta gráfica se visualiza de forma clara la mejora lograda. Mientras que el modelo original apenas logra asociar la imagen con el concepto de ``golden retriever'', el modelo especializado alcanza un nivel de coherencia semántica casi perfecto. Esto confirma que la técnica utilizada no solo mejora la calidad visual, sino también la capacidad del modelo para representar correctamente conceptos específicos.
 
-La Figura~\ref{fig:clip-bar} visualiza de forma clara la mejora lograda. Mientras que el modelo original apenas logra asociar la imagen con el concepto de “golden retriever”, el modelo especializado alcanza un nivel de coherencia semántica casi perfecto. Esto confirma que la técnica utilizada no solo mejora la calidad visual, sino también la capacidad del modelo para representar correctamente conceptos específicos.
+La mejora obtenida es significativa: el modelo especializado alcanza una puntuación de similitud casi 15 veces superior a la del modelo base. Este incremento cuantitativo confirma que la adaptación del espacio latente no solo mejora la fidelidad visual, sino que también optimiza la coherencia semántica desde la perspectiva de modelos multimodales como CLIP, lo que refuerza su utilidad en tareas de búsqueda visual guiada por lenguaje.
 
 \subsubsection{Análisis del coste de entrenamiento}
 
@@ -73,29 +67,23 @@ Para evaluar la viabilidad del entrenamiento personalizado, se midieron los prin
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{5cm}|p{9cm}|}
-\hline
+\begin{tabular}{p{5cm}p{9cm}}
 \rowcolor{gray!30}
 \textbf{Recurso} & \textbf{Especificaciones del servidor utilizado} \\
-\hline
+\rowcolor{gray!10}
 Procesador & AMD Ryzen Threadripper 2920X, 12 núcleos físicos, 24 hilos, hasta 3.5 GHz \\
-\hline
 Memoria RAM & 62 GiB totales, disponibles: 60 GiB libres \\
-\hline
+\rowcolor{gray!10}
 GPU & 2x NVIDIA TITAN RTX, 24 GiB de VRAM cada una \\
-\hline
 Sistema operativo & Ubuntu 24.04, kernel 6.8.0-59-generic, arquitectura x86\_64 \\
-\hline
+\rowcolor{gray!10}
 CUDA y Drivers & CUDA 12.4, Driver NVIDIA 550.163.01 \\
-\hline
 Duración del entrenamiento & Aprox. 5 horas \\
-\hline
+\rowcolor{gray!10}
 Tamaño del modelo entrenado & 4.0K (tamaño en disco del directorio \texttt{stable-dog-output}) \\
-\hline
 Frameworks utilizados & \texttt{diffusers}, \texttt{transformers}, \texttt{PyTorch}, \texttt{torchvision} \\
-\hline
+\rowcolor{gray!10}
 Técnicas aplicadas & DreamBooth, checkpointing, half precision (float16), batch size adaptativo \\
-\hline
 \end{tabular}
 \caption{Recursos técnicos del servidor utilizado para el entrenamiento final}
 \label{tab:servidor-entrenamiento}

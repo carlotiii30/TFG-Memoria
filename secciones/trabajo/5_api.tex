@@ -1,28 +1,37 @@
 \subsection{Implementación de la API para la Generación de Imágenes}
-Uno de los objetivos principales del proyecto fue desarrollar un sistema que permitiera la generación de imágenes a partir de descripciones textuales, accesible desde la plataforma JMR. Para ello, se implementó una API REST utilizando el framework \textit{FastAPI}, que actúa como puente entre el sistema generativo y la interfaz de usuario.
+
+Uno de los objetivos principales del proyecto fue desarrollar un sistema que permitiera la generación de imágenes a partir de descripciones textuales, accesible desde la plataforma JMR. Para ello, se implementó una API REST utilizando el framework \textit{FastAPI}, desplegada en local mediante Docker. Esta solución actúa como puente entre el sistema generativo y la interfaz de usuario, facilitando la separación de responsabilidades y permitiendo futuras ampliaciones sin comprometer la estabilidad del entorno principal.
 
 \subsubsection{Arquitectura de la API}
-La API está diseñada para ser modular, escalable y fácil de integrar en otros sistemas. Se compone de los siguientes módulos:
+
+La API está diseñada para ser modular, escalable y fácilmente integrable en otros sistemas. Su estructura se organiza en varios módulos independientes:
 
 \begin{itemize}
-    \item \textbf{Módulo de generación de imágenes}: Invoca al modelo de difusión para generar imágenes a partir de texto.
-    \item \textbf{Módulo de gestión de modelos}: Permite subir, eliminar o listar modelos disponibles en el sistema.
-    \item \textbf{Interfaz RESTful}: Expone los endpoints que facilitan la comunicación con el sistema.
+\item \textbf{Módulo de generación de imágenes}: Encargado de cargar el modelo seleccionado y generar imágenes a partir de un prompt textual.
+\item \textbf{Módulo de gestión de modelos}: Permite la subida, eliminación y listado de modelos de generación disponibles en el sistema.
+\item \textbf{Interfaz RESTful}: Define los distintos endpoints disponibles para interactuar con la API, conforme al paradigma CRUD.
 \end{itemize}
 
-\subsubsection{Endpoints implementados}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{diagramas/api_componentes.png}
+\caption{Diagrama de componentes de la API generativa}
+\label{fig:api-componentes}
+\end{figure}
+
+\subsubsection{Endpoints implementados} 
 \paragraph{Generación de imágenes}
 \begin{itemize}
     \item \textbf{POST /images/generate/}
     \begin{itemize}
         \item \textbf{Descripción:} genera una imagen a partir de una descripción textual.
         \item \textbf{Entrada (JSON):}
-        \begin{itemize}
-            \item \texttt{model\_name} (opcional, por defecto \texttt{stable\_modified})
-            \item \texttt{prompt} (requerido)
-            \item \texttt{num\_inference\_steps} (opcional, por defecto 50)
-            \item \texttt{guidance\_scale} (opcional, por defecto 7.5)
-        \end{itemize}
+            \begin{itemize}
+                \item \texttt{model\_name} (opcional, por defecto \texttt{stable\_modified})
+                \item \texttt{prompt} (requerido)
+                \item \texttt{num\_inference\_steps} (opcional, por defecto 50)
+                \item \texttt{guidance\_scale} (opcional, por defecto 7.5)
+            \end{itemize}
         \item \textbf{Salida:} JSON con la ruta de la imagen generada.
     \end{itemize}
 
@@ -59,7 +68,26 @@ La API está diseñada para ser modular, escalable y fácil de integrar en otros
 \end{itemize}
 
 \subsubsection{Flujo de interacción}
-El usuario introduce una descripción textual en la interfaz de JMR. Esta es enviada mediante un endpoint POST a la API, que responde con una imagen generada. La API también permite gestionar modelos a través de otros endpoints, manteniendo así un sistema flexible y ampliable.
+
+El flujo de uso parte de una descripción textual introducida en la interfaz de JMR. Esta se envía a través de un endpoint POST a la API, que responde con una imagen generada. La API también permite cambiar o cargar nuevos modelos desde la interfaz gráfica de la plataforma, lo que facilita la gestión dinámica sin necesidad de reiniciar el sistema.
+
+\subsubsection{Validación y seguridad}
+
+Durante el desarrollo se identificaron varios puntos críticos de validación:
+
+\begin{itemize}
+    \item \textbf{Validación de entradas:} FastAPI permite tipado estático de parámetros, pero aún no se han definido restricciones estrictas sobre longitud, formato o contenido del texto recibido. Se recomienda añadir validaciones más específicas para evitar errores semánticos o abusos del sistema.
+    \item \textbf{Validación estructural de modelos:} se implementó la función \texttt{validate\_model\_structure}, que comprueba que los modelos subidos contengan todos los archivos necesarios (\texttt{config.json}, \texttt{model.safetensors}, \texttt{tokenizer\_config.json}, etc.). En caso contrario, se lanza una excepción con código 400, impidiendo que se utilicen modelos corruptos o mal formateados.
+    \item \textbf{Control de acceso a archivos:} actualmente, el sistema carece de restricciones que limiten el acceso directo a imágenes generadas o a los modelos almacenados. Aunque en entorno local esto no supone un riesgo, si se desplegara públicamente se recomienda añadir autenticación básica o tokens de acceso temporales.
+    \item \textbf{Límites de uso:} no se han implementado aún mecanismos de control como rate limiting o autenticación por usuario. En un despliegue en producción, esto sería indispensable para evitar ataques DoS o sobrecarga de recursos.
+    \item \textbf{Manejo de errores personalizado:} la API gestiona excepciones básicas, pero no personaliza los mensajes de error. Se recomienda capturar errores críticos y devolver mensajes claros y controlados, evitando así la exposición de trazas internas.
+\end{itemize}
+
+Estas medidas constituyen una base sólida para la seguridad del sistema, aunque aún queda trabajo por hacer para prepararlo para un entorno de producción expuesto. Se recomienda implementar autenticación de usuarios, límites de uso y un tratamiento más robusto de la validación de parámetros.
+
+\subsubsection{Entorno y despliegue}
+
+La API se ejecuta en contenedores Docker configurados para su despliegue local. Esta elección permitió realizar pruebas aisladas, reproducibles y sin afectar al sistema anfitrión. Gracias a esta arquitectura, la API puede integrarse fácilmente en entornos más complejos como Kubernetes, o adaptarse para ejecutarse en servidores dedicados con balanceo de carga.
 
 \subsubsection{Conclusión}
-La API desarrollada con FastAPI proporciona una interfaz sólida y extensible para la generación de imágenes. Su diseño modular permite una integración fluida con la plataforma JMR, facilitando la evolución futura del sistema y permitiendo su adaptación a nuevos modelos o mejoras.
+La API desarrollada con FastAPI proporciona una interfaz robusta y extensible para la generación de imágenes a partir de texto. Su diseño modular, combinado con validaciones estructurales y la posibilidad de gestionar modelos dinámicamente, garantiza una base sólida sobre la que seguir evolucionando el sistema. Aunque aún quedan aspectos por reforzar en seguridad y escalabilidad, la solución actual cumple eficazmente su propósito en entornos de desarrollo y validación funcional.

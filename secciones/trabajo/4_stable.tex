@@ -8,7 +8,8 @@ El uso de modelos desarrollados desde cero permitió adquirir una comprensión p
 \subsubsection{Descripción del modelo: Stable Diffusion}
 Stable Diffusion es un modelo generativo de código abierto basado en el paradigma de \textit{modelos de difusión latente}. A diferencia de los enfoques GAN, donde dos redes adversarias compiten entre sí, este modelo transforma una distribución de ruido gaussiano hacia una imagen coherente mediante un proceso de denoising progresivo. Todo el proceso se ejecuta dentro de un espacio latente comprimido, lo cual mejora considerablemente la eficiencia computacional sin sacrificar calidad visual.
 
-\textbf{Componentes funcionales del modelo}  
+\paragraph{\textbf{Componentes funcionales del modelo}} \mbox{}\\[0.5em]
+El modelo se compone de varios módulos interconectados que trabajan en conjunto para transformar texto en imágenes. A continuación se presenta un resumen de los componentes principales y sus funciones:
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.5}
@@ -26,7 +27,8 @@ Stable Diffusion es un modelo generativo de código abierto basado en el paradig
 \label{tab:sd-components}
 \end{table}
 
-\subsubsection{Parámetros técnicos}  
+\paragraph{\textbf{Parámetros técnicos}} \mbox{}\\[0.5em]
+Stable Diffusion v1.4 se caracteriza por una serie de parámetros técnicos que definen su arquitectura y funcionamiento. Estos parámetros son cruciales para entender el rendimiento del modelo y su capacidad de generar imágenes de alta calidad a partir de descripciones textuales. A continuación se detallan los más relevantes:
 \begin{itemize}
 \item \textbf{Resolución de entrada:} 512x512 píxeles.
 \item \textbf{Tamaño del espacio latente:} 64x64 píxeles.
@@ -77,7 +79,8 @@ Cada una de estas técnicas fue evaluada en términos de complejidad, coste comp
 \subsubsection{Optimización seleccionada: modificación del espacio latente}
 Tras comparar las distintas técnicas, se optó por modificar el espacio latente utilizando un enfoque inspirado en DreamBooth, que permite introducir nuevas clases visuales en el modelo sin reentrenar su totalidad. Esta técnica se basa en un entrenamiento ligero y dirigido, en el que el modelo aprende a asociar un término inventado con un concepto visual específico.
 
-\textbf{Configuración del proceso}  
+\paragraph{\textbf{Configuración del proceso}} \mbox{}\\[0.5em]
+Para llevar a cabo la especialización del modelo, se utilizó el siguiente conjunto de parámetros y configuraciones:
 \begin{itemize}
 \item \textbf{Datos:} 60 imágenes de perros del dataset Stanford Dogs.
 \item \textbf{Prompt condicional:} \texttt{``a photo of a sks dog''}.
@@ -90,18 +93,15 @@ Tras comparar las distintas técnicas, se optó por modificar el espacio latente
 \end{itemize}
 \end{itemize}
 
-\textbf{Resultados}  
-\begin{itemize}
-\item Las imágenes generadas reflejaban con alta precisión los rasgos morfológicos de cada raza.
-\item Se mantuvo la coherencia semántica con los nuevos prompts específicos.
-\item El entrenamiento fue eficiente en tiempo y recursos, compatible con entornos como Kaggle o servidores personales con GPU.
-\end{itemize}
+\paragraph{\textbf{Resultados}} \mbox{}\\[0.5em]
+El proceso de especialización del modelo se completó en aproximadamente 5 horas, utilizando un servidor con dos GPUs NVIDIA TITAN RTX. El modelo resultante mostró una notable mejora en la generación de imágenes de perros: las imágenes generadas reflejaban con alta precisión los rasgos morfológicos de cada raza, se mantuvo la coherencia semántica con los nuevos \textit{prompts} específicos, y el entrenamiento resultó eficiente en tiempo y recursos, siendo compatible con entornos como Kaggle o servidores personales con GPU.
+
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{golden retriever.png}
+\includegraphics[width=0.45\textwidth]{golden_retriever.png}
 \hfill
-\includegraphics[width=0.45\textwidth]{golden retriever-2.png}
+\includegraphics[width=0.45\textwidth]{golden_retriever-2.png}
 \caption{Ejemplos de imágenes generadas tras la especialización del modelo.}
 \label{fig:latent-space-optimization}
 \end{figure}

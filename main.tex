@@ -34,6 +34,8 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
+\nocite{*}
+
 \begin{document}
     \begin{titlepage}
     \centering
@@ -131,13 +133,19 @@
 \newpage
 \input{secciones/10_conclusiones}
 
+\newpage
+\part{Anexos}
+
 \appendix
 
 \newpage
-\input{secciones/anexos/glosario}
+\input{secciones/anexos/manual}
 
 \newpage
-\input{secciones/anexos/manual}
+\input{secciones/anexos/figma}
+
+\newpage
+\input{secciones/anexos/glosario}
 
 \newpage
 \bibliography{bibliografia}

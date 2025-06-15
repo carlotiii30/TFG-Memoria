@@ -13,15 +13,6 @@
   \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
 
 \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
-\bibitem {mlc2023walkthrough}
-\btxnamefont {\btxlastnamefont {{MLC AI}}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Stable diffusion walkthrough}{Stable Diffusion Walkthrough}}.
-\newblock \url{https://github.com/mlc-ai/web-stable-diffusion}, 2023.
-\newblock Accedido el 4 de junio de 2025.
-
-\bibitem {baeldung-cbir}
-\btxnamefont {\btxlastnamefont {Simic}, Milos}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {What is content-based image retrieval?}{What is Content-Based Image Retrieval?}}
-\newblock \url{https://www.baeldung.com/cs/cbir-tbir}, 2024.
-
 \bibitem {li2021recent}
 \btxnamefont {\btxlastnamefont {Li}, Xiaoqing}, \btxnamefont {Jiansheng \btxlastnamefont {Yang}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Jinwen \btxlastnamefont {Ma}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Recent developments of content-based image retrieval (cbir)}{Recent developments of content-based image retrieval (CBIR)}}.
 \newblock \btxjournalfont {Neurocomputing}, 452:675--689, 2021\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {0925-2312}}}.
@@ -31,31 +22,53 @@
 \btxnamefont {\btxlastnamefont {Huet}, Pablo}, 2023.
 \newblock {\latintext \btxurlfont{https://openwebinars.net/blog/que-son-las-redes-neuronales-y-sus-aplicaciones/}}.
 
-\bibitem {gan-mathworks}
-\btxtitlefont {\btxifchangecase {Redes generativas antagónicas}{Redes Generativas Antagónicas}}.
-\newblock \url{https://es.mathworks.com/discovery/generative-adversarial-networks.html}.
-\newblock Consultado en abril de 2025.
-
 \bibitem {aws-gan}
 2023.
 \newblock {\latintext \btxurlfont{https://aws.amazon.com/es/what-is/gan/#:~:text=Un%20sistema%20de%20redes%20generativas,salida%20es%20falsa%20o%20real.}}
 
-\bibitem {datascientest-cgan}
-\btxtitlefont {\btxifchangecase {What is a conditional generative adversarial network (cgan)?}{What is a Conditional Generative Adversarial Network (cGAN)?}}
-\newblock \url{https://datascientest.com/en/what-is-a-conditional-generative-adversarial-network-cgan}, 2023.
-
-\bibitem {xu2018attngan}
-\btxnamefont {\btxlastnamefont {Xu}, Tao}, \btxnamefont {Pengchuan \btxlastnamefont {Zhang}}, \btxnamefont {Qiuyuan \btxlastnamefont {Huang}}, \btxnamefont {Han \btxlastnamefont {Zhang}}, \btxnamefont {Zhe \btxlastnamefont {Gan}}, \btxnamefont {Xiaolei \btxlastnamefont {Huang}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Xiaodong \btxlastnamefont {He}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Attngan: Fine-grained text to image generation with attentional generative adversarial networks}{AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks}}.
-\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, \btxpageslong {}\ 1316--1324, 2018.
+\bibitem {calabuig2023modelos}
+\btxnamefont {\btxlastnamefont {Calabuig~Llamas}, Marta}, \btxnamefont {Jorge \btxlastnamefont {Alcaide~Marzal}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Jos{\'e}\btxfnamespacelong Antonio \btxlastnamefont {Diego~M{\'a}s}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Modelos de generaci{\'o}n de im{\'a}genes mediante texto en el dise{\~n}o conceptual de productos. un caso de estudio empleando midjourney.}{Modelos de generaci{\'o}n de im{\'a}genes mediante texto en el dise{\~n}o conceptual de productos. Un caso de estudio empleando Midjourney.}}
+\newblock 2023.
 
 \bibitem {vaswani2017attention}
 \btxnamefont {\btxlastnamefont {Vaswani}, Ashish}, \btxnamefont {Noam \btxlastnamefont {Shazeer}}, \btxnamefont {Niki \btxlastnamefont {Parmar}}, \btxnamefont {Jakob \btxlastnamefont {Uszkoreit}}, \btxnamefont {Llion \btxlastnamefont {Jones}}, \btxnamefont {Aidan\btxfnamespacelong N \btxlastnamefont {Gomez}}, \btxnamefont {Łukasz \btxlastnamefont {Kaiser}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Illia \btxlastnamefont {Polosukhin}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Attention is all you need}{Attention is All You Need}}.
 \newblock \Btxinlong {}\ \btxtitlefont {Advances in Neural Information Processing Systems (NeurIPS)}, 2017.
 \newblock {\latintext \btxurlfont{https://arxiv.org/abs/1706.03762}}.
 
-\bibitem {calabuig2023modelos}
-\btxnamefont {\btxlastnamefont {Calabuig~Llamas}, Marta}, \btxnamefont {Jorge \btxlastnamefont {Alcaide~Marzal}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Jos{\'e}\btxfnamespacelong Antonio \btxlastnamefont {Diego~M{\'a}s}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Modelos de generaci{\'o}n de im{\'a}genes mediante texto en el dise{\~n}o conceptual de productos. un caso de estudio empleando midjourney.}{Modelos de generaci{\'o}n de im{\'a}genes mediante texto en el dise{\~n}o conceptual de productos. Un caso de estudio empleando Midjourney.}}
-\newblock 2023.
+\bibitem {baeldung-cbir}
+\btxnamefont {\btxlastnamefont {Simic}, Milos}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {What is content-based image retrieval?}{What is Content-Based Image Retrieval?}}
+\newblock \url{https://www.baeldung.com/cs/cbir-tbir}, 2024.
+
+\bibitem {gan-mathworks}
+\btxtitlefont {\btxifchangecase {Redes generativas antagónicas}{Redes Generativas Antagónicas}}.
+\newblock \url{https://es.mathworks.com/discovery/generative-adversarial-networks.html}.
+\newblock Consultado en abril de 2025.
+
+\bibitem {datascientest-cgan}
+\btxtitlefont {\btxifchangecase {What is a conditional generative adversarial network (cgan)?}{What is a Conditional Generative Adversarial Network (cGAN)?}}
+\newblock \url{https://datascientest.com/en/what-is-a-conditional-generative-adversarial-network-cgan}, 2023.
+
+\bibitem {educative-cgan}
+\btxtitlefont {\btxifchangecase {What is a conditional gan (cgan)?}{What is a Conditional GAN (cGAN)?}}
+\newblock \url{https://www.educative.io/answers/what-is-a-conditional-gan-cgan}, 2024.
+
+\bibitem {han2017stackgan}
+\btxnamefont {\btxlastnamefont {Zhang}, Han}, \btxnamefont {Tao \btxlastnamefont {Xu}}, \btxnamefont {Hongsheng \btxlastnamefont {Li}}, \btxnamefont {Shaoting \btxlastnamefont {Zhang}}, \btxnamefont {Xiaogang \btxlastnamefont {Wang}}, \btxnamefont {Xiaolei \btxlastnamefont {Huang}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Dimitris \btxlastnamefont {Metaxas}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Stackgan: Text to photo-realistic image synthesis with stacked generative adversarial networks}{StackGAN: Text to Photo-realistic Image Synthesis with Stacked Generative Adversarial Networks}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the IEEE International Conference on Computer Vision (ICCV)}, \btxpageslong {}\ 5907--5915, 2017.
+
+\bibitem {xu2018attngan}
+\btxnamefont {\btxlastnamefont {Xu}, Tao}, \btxnamefont {Pengchuan \btxlastnamefont {Zhang}}, \btxnamefont {Qiuyuan \btxlastnamefont {Huang}}, \btxnamefont {Han \btxlastnamefont {Zhang}}, \btxnamefont {Zhe \btxlastnamefont {Gan}}, \btxnamefont {Xiaolei \btxlastnamefont {Huang}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Xiaodong \btxlastnamefont {He}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Attngan: Fine-grained text to image generation with attentional generative adversarial networks}{AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, \btxpageslong {}\ 1316--1324, 2018.
+
+\bibitem {rombach2022highresolution}
+\btxnamefont {\btxlastnamefont {Rombach}, Robin}, \btxnamefont {Andreas \btxlastnamefont {Blattmann}}, \btxnamefont {Dominik \btxlastnamefont {Lorenz}}, \btxnamefont {Patrick \btxlastnamefont {Esser}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Björn \btxlastnamefont {Ommer}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {High-resolution image synthesis with latent diffusion models}{High-Resolution Image Synthesis with Latent Diffusion Models}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, \btxpageslong {}\ 10684--10695, 2022.
+\newblock {\latintext \btxurlfont{https://arxiv.org/abs/2112.10752}}.
+
+\bibitem {mlc2023walkthrough}
+\btxnamefont {\btxlastnamefont {{MLC AI}}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Stable diffusion walkthrough}{Stable Diffusion Walkthrough}}.
+\newblock \url{https://github.com/mlc-ai/web-stable-diffusion}, 2023.
+\newblock Accedido el 4 de junio de 2025.
 
 \bibitem {ho2020denoising}
 \btxnamefont {\btxlastnamefont {Ho}, Jonathan}, \btxnamefont {Ajay \btxlastnamefont {Jain}}\btxandcomma {} \btxandlong {}\ \btxnamefont {Pieter \btxlastnamefont {Abbeel}}\btxauthorcolon\ \btxjtitlefont {\btxifchangecase {Denoising diffusion probabilistic models}{Denoising Diffusion Probabilistic Models}}.

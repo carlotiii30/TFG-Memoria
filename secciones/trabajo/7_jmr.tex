@@ -1,0 +1,11 @@
+subsection{Integración con la plataforma JMR (Java)}
+
+Una parte fundamental del proyecto ha sido la integración del sistema generativo con la plataforma Java existente. Esta integración permite que los usuarios realicen consultas semánticas mediante texto directamente desde la interfaz gráfica de JMR, obteniendo como respuesta imágenes generadas que pueden visualizarse, guardarse o utilizarse como base para búsquedas visuales.
+
+El cliente Java se ha ampliado mediante un módulo específico que gestiona la conexión con la API de generación. Este módulo:
+
+\begin{itemize}
+    \item Incorpora nuevas entradas en la barra de herramientas que permiten escribir descripciones textuales.
+    \item Incluye un sistema de menús para seleccionar el tipo de API (local o en línea) y configurar el token si es necesario.
+    \item Añade nuevos tipos de ventanas internas (\texttt{InternalWindow}) para mostrar los resultados generados, gestionando adecuadamente la visualización, el guardado y el uso posterior de las imágenes.
+\end{itemize}

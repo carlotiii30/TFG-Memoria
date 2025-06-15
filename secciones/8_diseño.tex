@@ -27,7 +27,7 @@ Esta arquitectura distribuida permite mejorar la mantenibilidad, facilitar la ev
 
 \subsection{Modelo conceptual}
 
-El modelo conceptual del sistema refleja los elementos fundamentales que intervienen en el proceso de generación y búsqueda visual:
+El modelo conceptual del sistema refleja los elementos fundamentales que intervienen en el proceso de generación y búsqueda visual. La Figura~\ref{fig:modelo-conceptual} resume gráficamente este flujo, destacando la interacción entre el usuario, la API generativa y el motor de recuperación visual (CBIR).
 
 \begin{itemize}
     \item \textbf{Usuario:} introduce una descripción textual a través de la interfaz JMR.
@@ -37,7 +37,16 @@ El modelo conceptual del sistema refleja los elementos fundamentales que intervi
     \item \textbf{Configuración del modelo:} conjunto de parámetros que determinan el comportamiento del generador (modelo base, pasos, guidance, etc.).
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{diagramas/modelo_conceptual.png}
+    \caption{Representación esquemática del modelo conceptual del sistema}
+    \label{fig:modelo-conceptual}
+\end{figure}
+
+
 Este modelo permitió definir los flujos de información, el diseño de las peticiones API y las entidades clave del sistema.
+
 
 \subsection{Diseño del modelo de clases}
 
@@ -45,27 +54,53 @@ Dado que el sistema combina componentes en dos lenguajes distintos, se ha docume
 
 \subsubsection{Modelo de clases en Java}
 
-El cliente JMR incluye una serie de clases que gestionan la visualización, el flujo de entrada/salida y la integración con el servidor generativo. El siguiente diagrama resume las principales clases y sus relaciones:
+El modelo de clases Java describe la estructura de la aplicación cliente (JMR) y su interacción con la API de generación de imágenes. En el centro se encuentra la clase \texttt{MainWindow}, que representa la interfaz principal y gestiona el estado de la aplicación, las ventanas internas y la interacción del usuario con los prompts generativos.
+
+La clase \texttt{MainWindow} se conecta con:
+\begin{itemize}
+\item \texttt{PromptGeneratedImageDescriptor} y \texttt{PromptGeneratedImageDescriptorLocal}, que encapsulan la lógica para realizar consultas generativas, ya sea mediante una API online o una versión local del modelo.
+\item \texttt{ImagePromptItem}, que almacena información sobre cada prompt generado y facilita su reutilización.
+\end{itemize}
+
+Estas clases se encargan de gestionar tanto los datos visuales como los metadatos asociados (prompts, rutas, respuestas HTTP). Además, se incluyen clases auxiliares como \texttt{Circulo}, utilizadas en otras funcionalidades del sistema visual de JMR, pero que se mantienen desacopladas del módulo generativo.
+
+Este diseño modular permite que la interfaz pueda comunicarse con diferentes fuentes de generación de imágenes sin modificar la lógica principal, facilitando la escalabilidad y la extensión futura del sistema.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{diagrama_clases_java}
-    \caption{Diagrama de clases del módulo de integración en Java}
-    \label{fig:clases-java}
+\centering
+\includegraphics[width=0.9\textwidth]{diagrama_clases_java}
+\caption{Diagrama de clases del módulo de integración en Java}
+\label{fig:clases-java}
 \end{figure}
 
 \subsubsection{Modelo de clases en Python}
 
-Aunque muchos módulos Python siguen una estructura funcional, se han representado como clases sintéticas para reflejar su cohesión interna y responsabilidades. Además, el script de entrenamiento se encapsula conceptualmente como una clase \texttt{DogTrainer}, facilitando su comprensión y documentación:
+El modelo de clases en Python, representado como una abstracción de los módulos funcionales, refleja la lógica interna del sistema generativo. En el centro se encuentra la clase conceptual \texttt{DogTrainer}, que agrupa todos los elementos necesarios para el entrenamiento y generación de imágenes mediante DreamBooth.
+
+Esta clase maneja:
+\begin{itemize}
+\item La descarga y filtrado del dataset (\texttt{download\_and\_extract\_dataset()}, \texttt{select\_images()}).
+\item El entrenamiento del modelo personalizado (\texttt{train\_dreambooth()}).
+\item La generación de imágenes y compresión de resultados (\texttt{generate\_images()}, \texttt{zip\_results()}).
+\end{itemize}
+
+Además, se incluye la clase \texttt{DogDataset}, que estructura el conjunto de datos utilizado para el entrenamiento, y \texttt{GenerateRequest}, que define los parámetros necesarios para realizar una petición de generación.
+
+En cuanto a la API, se representan los distintos módulos como clases con sus funciones principales:
+\begin{itemize}
+\item \texttt{ModelOperations} para gestión de modelos (upload, delete, list),
+\item \texttt{ImageOperations} para generación y descarga de imágenes,
+\item \texttt{Validation} para la comprobación estructural de los modelos subidos.
+\end{itemize}
+
+Este enfoque facilita la mantenibilidad del sistema y su extensión a nuevas funcionalidades, garantizando una separación clara entre el entrenamiento, la generación y la exposición mediante API.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{diagrama_clases_python}
-    \caption{Diagrama de clases del sistema generativo en Python}
-    \label{fig:clases-python}
+\centering
+\includegraphics[width=0.75\textwidth]{diagrama_clases_python}
+\caption{Diagrama de clases del sistema generativo en Python}
+\label{fig:clases-python}
 \end{figure}
-
-Estas representaciones permiten comprender de forma estructurada la distribución de responsabilidades y la lógica interna de cada componente, sirviendo de soporte a la implementación modular del sistema.
 
 
 \subsection{Diseño de la interfaz}
@@ -85,62 +120,81 @@ El siguiente diagrama de flujo describe la secuencia de operaciones que se ejecu
 
 Los primeros bocetos se realizaron a mano con el objetivo de definir la estructura inicial de la interfaz, priorizando la disposición de los componentes principales: el área de entrada del prompt, el botón de generación, la galería de resultados y las opciones adicionales de filtrado o guardado. Estos bocetos permitieron una exploración rápida de ideas antes de pasar a herramientas digitales.
 
+El primer boceto muestra la vista general del escritorio o ventana principal de la aplicación. En la parte superior se encuentra una barra de herramientas con botones y opciones de interacción. La zona central queda libre para cargar ventanas internas según las acciones del usuario, como la generación o visualización de imágenes.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{bocetos/boceto1.png}
+    \includegraphics[width=0.7\textwidth]{bocetos/boceto1.png}
     \caption{Boceto: propuesta inicial del layout general}
     \label{fig:boceto1}
 \end{figure}
 
+El segundo boceto representa la ventana de generación de imagen. Esta aparece superpuesta sobre el escritorio y contiene una zona de entrada de texto donde el usuario puede escribir el prompt, junto con un botón de acción y una barra de carga que indica el estado del proceso de generación.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{bocetos/boceto2.png}
+    \includegraphics[width=0.7\textwidth]{bocetos/boceto2.png}
     \caption{Boceto: navegación entre secciones}
     \label{fig:boceto2}
 \end{figure}
 
+El tercer boceto corresponde a la vista de resultados generados. En la parte superior se visualiza una galería de imágenes miniatura, mientras que en la zona inferior se muestra una imagen ampliada seleccionada por el usuario. Este diseño facilita la exploración visual y la interacción posterior, como aplicar descriptores o realizar búsquedas visuales.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{bocetos/boceto3.png}
+    \includegraphics[width=0.7\textwidth]{bocetos/boceto3.png}
     \caption{Boceto: detalle de interacción en la vista de resultados}
     \label{fig:boceto3}
 \end{figure}
 
+
 \subsubsection{Wireframes}
 
-A partir de los bocetos iniciales, se desarrollaron wireframes de baja fidelidad utilizando herramientas digitales. Estos permitieron refinar la experiencia de usuario y definir la jerarquía visual de cada componente. Los wireframes presentan la organización funcional de las pantallas clave: generación de imágenes, galería de resultados y acciones disponibles sobre cada imagen.
+A partir de los bocetos iniciales, se desarrollaron wireframes de baja fidelidad utilizando herramientas digitales. Estos permitieron refinar la experiencia de usuario, definir la jerarquía visual de cada componente y estructurar la navegación entre secciones clave del sistema.
+
+La primera pantalla corresponde al escritorio o ventana principal del sistema. En ella se muestra la interfaz base del entorno JMR, con su barra de herramientas y el área central donde se mostrarán las distintas ventanas internas.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{wireframes/wireframe1.png}
+    \includegraphics[width=0.65\textwidth]{wireframes/wireframe1.png}
     \caption{Wireframe: pantalla principal con área de generación}
     \label{fig:wireframe1}
 \end{figure}
 
+La segunda imagen representa la ventana de generación de imagen. Esta ventana se abre dentro del escritorio cuando el usuario decide introducir un prompt. Incluye un área de visualización de la imagen generada, un campo de entrada de texto y un botón de acción.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{wireframes/wireframe2.png}
+    \includegraphics[width=0.65\textwidth]{wireframes/wireframe2.png}
     \caption{Wireframe: visualización detallada de una imagen generada}
     \label{fig:wireframe3}
 \end{figure}
 
+El tercer wireframe muestra la pantalla de resultados, donde se visualiza la imagen generada y las imágenes recuperadas mediante el sistema CBIR. En la parte superior se encuentra la galería de resultados similares y, debajo, una vista ampliada de la imagen seleccionada.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{wireframes/wireframe3.png}
+    \includegraphics[width=0.65\textwidth]{wireframes/wireframe3.png}
     \caption{Wireframe: pantalla de resultados con opciones de filtrado}
     \label{fig:wireframe2}
 \end{figure}
 
 \subsubsection{Prototipo en Figma}
 
-Como parte final del diseño, se elaboró un prototipo funcional en Figma basado en los wireframes anteriores. Este prototipo interactivo permitió simular la navegación entre pantallas, validar la disposición de los elementos y detectar posibles fricciones en la experiencia de usuario. Además, facilitó la comunicación visual con el equipo de desarrollo y la obtención de feedback por parte de usuarios potenciales.
+Como parte final del diseño de la interfaz, se construyó un prototipo funcional en Figma basado en los wireframes anteriores. Este prototipo permitió simular la navegación entre ventanas y validar la experiencia de usuario en un entorno gráfico realista.
+
+La interacción está compuesta por distintas pantallas: la ventana principal de escritorio, la ventana emergente de generación, la vista con imagen generada, la galería de resultados y el histórico de prompts. También se definieron transiciones claras entre cada pantalla, incluyendo retroalimentación tras la generación o selección de imágenes. 
+
+Este flujo fue clave para observar posibles puntos de mejora en usabilidad y validar la navegación global del sistema antes de implementarlo.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{wireframes/wireframe1.png}
-    \caption{Captura del prototipo desarrollado en Figma}
+    \includegraphics[width=1\textwidth]{figma/general.png}
+    \caption{Vista general del flujo de navegación entre pantallas del prototipo en Figma}
     \label{fig:figma-prototype}
 \end{figure}
+
+Las capturas detalladas de las pantallas y sus interacciones están disponibles en el Anexo~\ref{anexo:figma}.
 
 \subsubsection{Usabilidad}
 
