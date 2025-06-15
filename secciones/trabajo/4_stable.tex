@@ -1,92 +1,109 @@
 \subsection{Modelo final}
-Tras varias iteraciones exploratorias con distintos modelos generativos desarrollados desde cero, se optó finalmente por utilizar un modelo preentrenado que resolviera las limitaciones encontradas en cuanto a recursos y calidad de imagen: \textit{Stable Diffusion v1.4}.
+
+Tras una fase intensiva de desarrollo e implementación de modelos generativos propios como GAN, cGAN y AttnGAN, se identificaron varias limitaciones que obstaculizaban el objetivo principal del proyecto: obtener imágenes visualmente coherentes y de calidad a partir de descripciones textuales. Entre los principales desafíos se encontraron la baja fidelidad visual de las imágenes generadas, la inestabilidad durante el entrenamiento y la elevada demanda de recursos computacionales. Ante este escenario, se optó por adoptar un enfoque basado en modelos preentrenados de alta calidad, siendo \textit{Stable Diffusion v1.4} el seleccionado por su equilibrio entre rendimiento, accesibilidad y resultados visuales.
 
 \subsubsection{Motivación para el uso de modelos preentrenados}
-A lo largo del proyecto, se implementaron modelos como GAN, cGAN y AttnGAN. Estas aproximaciones permitieron comprender la lógica interna de la generación de imágenes, así como los desafíos vinculados a la representación del texto y la arquitectura del generador. Sin embargo, la calidad de las imágenes generadas no era suficiente, y el coste computacional resultó demasiado elevado. Por ello, se decidió adoptar un modelo preentrenado robusto como Stable Diffusion, que ofreciera resultados inmediatos y una mayor fidelidad visual.
+El uso de modelos desarrollados desde cero permitió adquirir una comprensión profunda sobre los mecanismos de generación de imágenes, los procesos de codificación semántica del texto y el funcionamiento interno de arquitecturas como UNet o LSTM. Sin embargo, los resultados obtenidos no alcanzaban el nivel de calidad deseado, especialmente al trabajar con descripciones complejas del dataset COCO. Además, las restricciones computacionales (limitación de GPU, RAM y tiempo de entrenamiento) impedían escalar las pruebas de manera eficaz. Por ello, se decidió migrar a un modelo preentrenado que ofreciera resultados competitivos desde el inicio sin necesidad de un proceso de entrenamiento completo, siendo Stable Diffusion una de las soluciones más robustas disponibles actualmente para la generación de imágenes a partir de texto.
 
-\subsubsection{Descripción del modelo}
-Stable Diffusion es un modelo generativo basado en la técnica de difusión latente. Su funcionamiento se basa en partir de una imagen compuesta únicamente por ruido, que se refina progresivamente gracias a una red neuronal convolucional condicionada por el texto de entrada.
+\subsubsection{Descripción del modelo: Stable Diffusion}
+Stable Diffusion es un modelo generativo de código abierto basado en el paradigma de \textit{modelos de difusión latente}. A diferencia de los enfoques GAN, donde dos redes adversarias compiten entre sí, este modelo transforma una distribución de ruido gaussiano hacia una imagen coherente mediante un proceso de denoising progresivo. Todo el proceso se ejecuta dentro de un espacio latente comprimido, lo cual mejora considerablemente la eficiencia computacional sin sacrificar calidad visual.
 
-\subsubsection{Componentes principales}
+\textbf{Componentes funcionales del modelo}  
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{4.5cm}p{11cm}}
+\rowcolor{gray!30}
+\textbf{Componente} & \textbf{Función principal} \\
+\rowcolor{gray!10}
+\textbf{UNet2DConditionModel} & Red convolucional profunda que refina la imagen ruidosa en múltiples pasos, guiada por el texto. Se encarga del proceso de denoising en el espacio latente. \\
+\textbf{CLIPTextModel (ViT-L/14)} & Codificador textual que convierte la descripción de entrada en una representación semántica densa utilizada como guía para el proceso de generación. \\
+\rowcolor{gray!10}
+\textbf{AutoencoderKL (VAE)} & Encargado de mapear imágenes reales al espacio latente y decodificar las imágenes generadas desde dicho espacio a píxeles reales. \\
+\textbf{Scheduler (DDIM)} & Controla el ruido introducido en cada paso y define la trayectoria de desdenoising, determinando el número de pasos y el ritmo de evolución. \\
+\end{tabular}
+\caption{Resumen funcional de los componentes principales de Stable Diffusion}
+\label{tab:sd-components}
+\end{table}
+
+\subsubsection{Parámetros técnicos}  
 \begin{itemize}
-    \item \textbf{UNet:} red neuronal convolucional encargada del proceso de denoising, refinando la imagen en cada paso de inferencia.
-    \item \textbf{Text Encoder (CLIP):} transforma la descripción textual en un espacio latente de características que orienta el proceso de generación.
-    \item \textbf{Autoencoder Variacional (VAE):} codifica las imágenes reales y decodifica los resultados generados en un espacio latente comprimido.
-    \item \textbf{Scheduler:} controla el nivel de ruido introducido en cada iteración de difusión, determinando la evolución temporal del proceso.
+\item \textbf{Resolución de entrada:} 512x512 píxeles.
+\item \textbf{Tamaño del espacio latente:} 64x64 píxeles.
+\item \textbf{Pasos de inferencia:} 50 (utilizando el scheduler DDIM).
+\item \textbf{Guidance scale (CFG):} 7.5, valor que controla el grado de alineamiento entre texto e imagen.
+\item \textbf{Codificador textual:} CLIP ViT-L/14.
+\item \textbf{Parámetros de UNet:} Aproximadamente 860 millones.
 \end{itemize}
 
-\subsubsection{Parámetros del modelo}
-\begin{itemize}
-    \item Resolución de entrada: \textbf{512x512 píxeles}.
-    \item Pasos de inferencia: \textbf{50}.
-    \item Escala de orientación: \textbf{7.5} (Guidance Scale).
-    \item Tamaño del espacio latente: \textbf{64x64 píxeles}.
-    \item Codificador de texto: \textbf{CLIP ViT-L/14}.
-    \item Tamaño del modelo UNet: aproximadamente \textbf{860M de parámetros}.
-\end{itemize}
+\subsubsection{Evaluación inicial del modelo}
 
-\subsubsection{Prueba inicial de generación}
-Como primer experimento de validación, se utilizó el prompt:
+Como prueba exploratoria se utilizó el siguiente prompt genérico:
 
 \begin{center}
 \textit{``A beautiful landscape with mountains and a river''}
 \end{center}
 
-Se emplearon los valores por defecto del modelo y se obtuvo la siguiente imagen:
+La imagen generada reflejó una notable fidelidad visual y semántica con respecto al texto, validando la capacidad del modelo para interpretar y representar con precisión elementos geográficos y naturales. Se observaron detalles como la correcta proporción entre los elementos, una distribución armónica del paisaje y un estilo visual coherente con la descripción dada.
+
+Este resultado preliminar puso de manifiesto la solidez del modelo en tareas de generación generalista, especialmente con prompts descriptivos de carácter amplio. Asimismo, sirvió como punto de partida para contrastar su rendimiento en escenarios más exigentes o especializados, como la generación de razas de perros o conceptos personalizados que requieren una mayor precisión semántica.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\textwidth]{original_output_image.png}
-    \caption{Imagen generada con Stable Diffusion v1.4}
-    \label{fig:original_image}
+\centering
+\includegraphics[width=0.4\textwidth]{original_output_image.png}
+\caption{Imagen generada con Stable Diffusion v1.4 a partir de un prompt general}
+\label{fig:original_image}
 \end{figure}
 
-\subsubsection{Conclusiones preliminares}
-La prueba demostró que Stable Diffusion proporciona imágenes de gran calidad visual con una alta coherencia respecto a la descripción textual. Su uso supuso una mejora inmediata en términos de rendimiento y viabilidad para su integración con la plataforma Java.
-
-\subsubsection{Optimización del modelo}
-Aunque el modelo preentrenado ya ofrecía resultados prometedores, se exploraron posibles optimizaciones para mejorar aún más la precisión y adaptabilidad del sistema:
+\subsubsection{Exploración de técnicas de optimización}
+Pese a los buenos resultados iniciales, se evaluaron diversas estrategias para personalizar o mejorar el rendimiento del modelo. Estas técnicas permiten adaptar el modelo a tareas específicas, aumentar su capacidad expresiva o mejorar la coherencia semántica de las imágenes generadas con respecto al texto de entrada. A continuación se describen las principales aproximaciones consideradas:
 
 \begin{itemize}
-    \item \textbf{Ajuste fino del modelo completo:} consiste en reentrenar el modelo en su totalidad utilizando un nuevo conjunto de datos, lo que permite adaptar todos sus parámetros a una tarea específica. Esta técnica mejora la especialización del modelo, aunque requiere muchos recursos computacionales y riesgo de sobreajuste si no se dispone de suficientes datos.
+\item \textbf{Fine-tuning del modelo completo:} Ajuste de todos los pesos del modelo utilizando nuevos datos específicos. Esta técnica permite una especialización profunda, aunque conlleva un alto coste computacional y riesgo de sobreajuste si el conjunto de datos es reducido.
 
-    \item \textbf{Modificación del espacio latente:} se centra en ajustar la estructura o dimensiones del espacio latente donde se representan las imágenes. Esto puede permitir una mayor expresividad y detalle en las imágenes generadas, así como un mejor alineamiento semántico entre el texto y la imagen.
+\item \textbf{Modificación del espacio latente:} Rediseño o ajuste del espacio latente en el que se realiza la generación, con el fin de mejorar la calidad representacional. Al trabajar en una representación comprimida, pequeñas mejoras en este espacio pueden traducirse en cambios significativos en la calidad y coherencia de las imágenes generadas.
 
-    \item \textbf{Sustitución del decodificador VAE:} implica reemplazar el decodificador del autoencoder variacional por otro más potente o con características distintas, con el objetivo de mejorar la calidad visual de las imágenes reconstruidas desde el espacio latente.
+\item \textbf{Reemplazo del VAE:} Sustitución del autoencoder variacional por uno más avanzado o con mejores propiedades de reconstrucción, lo cual puede influir positivamente en el nivel de detalle de las imágenes y reducir artefactos visuales en la salida final.
 
-    \item \textbf{Entrenamiento LoRA (Low-Rank Adaptation):} permite ajustar solo un pequeño subconjunto de parámetros del modelo base de forma eficiente, reduciendo el coste computacional y el riesgo de sobreajuste. Es especialmente útil cuando se quiere adaptar el modelo con recursos limitados.
+\item \textbf{Técnica LoRA:} (Low-Rank Adaptation) Permite modificar solo un subconjunto reducido de los parámetros del modelo mediante descomposición de matrices. Esto hace posible una adaptación eficiente con muy pocos recursos, sin necesidad de reentrenar el modelo completo.
 
-    \item \textbf{Cambio en funciones de pérdida:} implica modificar la función de coste que guía el aprendizaje del modelo. Por ejemplo, se puede incorporar una pérdida perceptual o una pérdida basada en CLIP para mejorar la coherencia semántica entre la imagen y el texto.
+\item \textbf{Cambio de función de pérdida:} Implementación de nuevas funciones de coste que optimicen no solo la precisión pixel a pixel, sino también la coherencia semántica o perceptual. Se pueden emplear pérdidas basadas en embeddings de CLIP o en distancias perceptuales como LPIPS.
 
-    \item \textbf{Adaptaciones en la arquitectura UNet:} consiste en modificar la red UNet responsable del proceso de denoising durante la difusión. Esto puede incluir la incorporación de capas de atención adicionales, cambios en la profundidad de la red o en su estructura de skip connections para mejorar la capacidad del modelo.
+\item \textbf{Modificaciones estructurales en UNet:} Inclusión de capas de atención adicionales (como Self-Attention o Cross-Attention), ajuste del número de bloques residuales o cambios en la arquitectura general. Estas modificaciones pueden aumentar la capacidad del modelo para capturar dependencias espaciales complejas.
 \end{itemize}
+
+Cada una de estas técnicas fue evaluada en términos de complejidad, coste computacional y mejora esperada en la calidad de las imágenes generadas. Se priorizó la búsqueda de un enfoque que permitiera una especialización rápida y efectiva sin requerir un reentrenamiento exhaustivo del modelo completo.
 
 \subsubsection{Optimización seleccionada: modificación del espacio latente}
-Entre todas las alternativas exploradas, se optó por modificar el espacio latente del modelo mediante un proceso de ajuste personalizado inspirado en la técnica DreamBooth. En lugar de utilizar herramientas empaquetadas, se implementó un procedimiento propio en Python que permite especializar el modelo de difusión en nuevas clases visuales, partiendo de una colección reducida de imágenes.
+Tras comparar las distintas técnicas, se optó por modificar el espacio latente utilizando un enfoque inspirado en DreamBooth, que permite introducir nuevas clases visuales en el modelo sin reentrenar su totalidad. Esta técnica se basa en un entrenamiento ligero y dirigido, en el que el modelo aprende a asociar un término inventado con un concepto visual específico.
 
-Para ello, se seleccionaron 60 imágenes de tres razas concretas de perro (\textit{golden retriever}, \textit{basset hound} y \textit{whippet}) del dataset Stanford Dogs. Estas imágenes fueron preprocesadas y utilizadas en un entrenamiento supervisado en el que:
-
+\textbf{Configuración del proceso}  
 \begin{itemize}
-    \item Se congelaron los módulos del codificador de texto (\texttt{CLIPTextModel}) y el decodificador (\texttt{AutoencoderKL}).
-    \item Se entrenó únicamente la red \texttt{UNet2DConditionModel}, que controla la predicción del ruido en el espacio latente.
-    \item Se empleó un prompt específico (\texttt{a photo of a sks dog}) como condicionamiento textual, simulando la incorporación de una nueva categoría visual.
+\item \textbf{Datos:} 60 imágenes de perros del dataset Stanford Dogs.
+\item \textbf{Prompt condicional:} \texttt{``a photo of a sks dog''}.
+\item \textbf{Entrenamiento:}
+\begin{itemize}
+\item Congelación de \texttt{CLIPTextModel} y \texttt{AutoencoderKL}.
+\item Entrenamiento solo de \texttt{UNet2DConditionModel}.
+\item Optimización con AdamW, batch size 1, learning rate $5\times10^{-6}$.
+\item 1000 pasos de entrenamiento.
+\end{itemize}
 \end{itemize}
 
-Este entrenamiento se realizó con un tamaño de lote de 1, utilizando el optimizador AdamW y una tasa de aprendizaje reducida (\texttt{5e-6}), durante 1000 pasos. Una vez completado el entrenamiento, se generaron imágenes de prueba con prompts específicos para cada raza, como \texttt{``a photo of a sks whippet wearing sunglasses''}.
-
+\textbf{Resultados}  
 \begin{itemize}
-    \item Se observó un aumento en la nitidez y realismo de las imágenes generadas.
-    \item Las imágenes eran coherentes con los conceptos entrenados y semánticamente alineadas con los prompts.
-    \item El coste computacional fue contenido al reutilizar componentes preentrenados y entrenar únicamente los parámetros necesarios.
+\item Las imágenes generadas reflejaban con alta precisión los rasgos morfológicos de cada raza.
+\item Se mantuvo la coherencia semántica con los nuevos prompts específicos.
+\item El entrenamiento fue eficiente en tiempo y recursos, compatible con entornos como Kaggle o servidores personales con GPU.
 \end{itemize}
-
-Este enfoque proporciona un equilibrio óptimo entre rendimiento, especialización visual y eficiencia, y resulta especialmente útil para entornos integrados como JMR.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{golden retriever.png}
-    \hfill
-    \includegraphics[width=0.45\textwidth]{golden retriever-2.png}
-    \caption{Ejemplo de imágenes generadas tras la modificación del espacio latente}
-    \label{fig:latent-space-optimization}
+\centering
+\includegraphics[width=0.45\textwidth]{golden retriever.png}
+\hfill
+\includegraphics[width=0.45\textwidth]{golden retriever-2.png}
+\caption{Ejemplos de imágenes generadas tras la especialización del modelo.}
+\label{fig:latent-space-optimization}
 \end{figure}
+
+\input{secciones/trabajo/6_resultados.tex}

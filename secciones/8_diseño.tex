@@ -69,27 +69,95 @@ Estas representaciones permiten comprender de forma estructurada la distribució
 
 
 \subsection{Diseño de la interfaz}
-\subsubsection{Bocetos}
-\subsubsection{Diagrama de flujo}
-El siguiente diagrama de flujo describe la secuencia de operaciones que se ejecutan desde la entrada del prompt por parte del usuario hasta la recuperación de resultados visuales. Este flujo ilustra la lógica general del sistema y su ejecución coordinada entre los distintos módulos.
+El diseño de la interfaz de usuario ha sido un componente clave para facilitar la interacción con el sistema de generación y búsqueda de imágenes. Este apartado presenta la evolución del diseño, desde los primeros esquemas conceptuales hasta el prototipo final interactivo. Se parte del análisis de flujo de interacción, se muestran los bocetos iniciales y wireframes funcionales, y finalmente se presenta el prototipo desarrollado en Figma. Además, se analizan los principios de usabilidad aplicados para garantizar una experiencia fluida e intuitiva para el usuario final.
+
+\subsubsection{Diagrama de flujo de interacción}
+El siguiente diagrama de flujo describe la secuencia de operaciones que se ejecutan desde la introducción del prompt por parte del usuario hasta la obtención de los resultados visuales. Este flujo ilustra la lógica general del sistema, destacando las decisiones clave y la coordinación entre los distintos módulos (interfaz gráfica, API de generación y sistema CBIR).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{diagrama_flujo}
+    \includegraphics[width=0.6\textwidth]{diagramas/diagrama_flujo.png}
     \caption{Flujo de interacción entre el usuario, la API generativa y el sistema CBIR}
     \label{fig:flujo-interaccion}
 \end{figure}
 
-\subsubsection{Usabilidad}
-El diseño del sistema ha sido guiado por criterios de usabilidad orientados a garantizar una interacción clara, eficiente y accesible para usuarios con distintos niveles de experiencia técnica. A partir de las historias de usuario definidas (HU1 y HU2), se identificaron las necesidades prioritarias que la interfaz debía cubrir: introducir una descripción textual de forma sencilla, obtener una imagen generada coherente con dicha descripción, y utilizar esa imagen como punto de partida para la búsqueda de contenido visual similar.
+\subsubsection{Bocetos}
 
-En respuesta a estos objetivos, se adoptaron los siguientes principios de diseño centrado en el usuario:
+Los primeros bocetos se realizaron a mano con el objetivo de definir la estructura inicial de la interfaz, priorizando la disposición de los componentes principales: el área de entrada del prompt, el botón de generación, la galería de resultados y las opciones adicionales de filtrado o guardado. Estos bocetos permitieron una exploración rápida de ideas antes de pasar a herramientas digitales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{bocetos/boceto1.png}
+    \caption{Boceto: propuesta inicial del layout general}
+    \label{fig:boceto1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{bocetos/boceto2.png}
+    \caption{Boceto: navegación entre secciones}
+    \label{fig:boceto2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{bocetos/boceto3.png}
+    \caption{Boceto: detalle de interacción en la vista de resultados}
+    \label{fig:boceto3}
+\end{figure}
+
+\subsubsection{Wireframes}
+
+A partir de los bocetos iniciales, se desarrollaron wireframes de baja fidelidad utilizando herramientas digitales. Estos permitieron refinar la experiencia de usuario y definir la jerarquía visual de cada componente. Los wireframes presentan la organización funcional de las pantallas clave: generación de imágenes, galería de resultados y acciones disponibles sobre cada imagen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wireframes/wireframe1.png}
+    \caption{Wireframe: pantalla principal con área de generación}
+    \label{fig:wireframe1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wireframes/wireframe2.png}
+    \caption{Wireframe: visualización detallada de una imagen generada}
+    \label{fig:wireframe3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wireframes/wireframe3.png}
+    \caption{Wireframe: pantalla de resultados con opciones de filtrado}
+    \label{fig:wireframe2}
+\end{figure}
+
+\subsubsection{Prototipo en Figma}
+
+Como parte final del diseño, se elaboró un prototipo funcional en Figma basado en los wireframes anteriores. Este prototipo interactivo permitió simular la navegación entre pantallas, validar la disposición de los elementos y detectar posibles fricciones en la experiencia de usuario. Además, facilitó la comunicación visual con el equipo de desarrollo y la obtención de feedback por parte de usuarios potenciales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wireframes/wireframe1.png}
+    \caption{Captura del prototipo desarrollado en Figma}
+    \label{fig:figma-prototype}
+\end{figure}
+
+\subsubsection{Usabilidad}
+
+El diseño de la interfaz se ha guiado por principios fundamentales de usabilidad con el objetivo de ofrecer una experiencia accesible, eficiente y satisfactoria para todo tipo de usuarios, independientemente de su nivel técnico. A partir de las historias de usuario definidas (HU1 y HU2), se identificaron tres necesidades clave: introducir descripciones textuales de forma clara, visualizar resultados generados de forma comprensible, y reutilizar esas imágenes para buscar contenido visual similar en la base de datos.
+
+Con base en estos objetivos, se aplicaron los siguientes principios de diseño centrado en el usuario:
+
 \begin{itemize}
-    \item \textbf{Simplicidad de la interacción:} La interfaz principal se reduce a tres elementos fundamentales: un campo de entrada para el texto (prompt), un botón de acción para generar la imagen, y un área de visualización para mostrar el resultado. Esta estructura minimalista reduce la curva de aprendizaje y evita distracciones innecesarias.
-    
-    \item \textbf{Visibilidad y retroalimentación inmediata:} Una vez introducido el prompt y pulsado el botón de generación, el sistema muestra un indicador de carga que informa al usuario del progreso del proceso. Al finalizar, se muestra la imagen resultante junto con la posibilidad de confirmar su uso como consulta CBIR. Esta respuesta inmediata refuerza la confianza del usuario en el sistema.
-    
-    \item \textbf{Consistencia y familiaridad:} Se respetaron patrones comunes de interacción para minimizar la necesidad de aprendizaje. El uso de botones estándar, etiquetas claras y una disposición vertical favorecen una navegación predecible y consistente.
+    \item \textbf{Interacción simple y directa:} La interfaz principal presenta solo los elementos esenciales para la tarea principal: un campo para introducir el prompt, un botón para iniciar la generación y un área de visualización de la imagen resultante. Esta simplicidad evita la sobrecarga cognitiva y facilita que el usuario comprenda rápidamente cómo usar el sistema sin necesidad de asistencia externa.
+
+    \item \textbf{Retroalimentación inmediata y comprensible:} Tras introducir el prompt, el sistema proporciona indicadores visuales (como animaciones de carga) que confirman que la solicitud está siendo procesada. Al completarse la generación, la imagen se muestra de forma destacada, acompañada de una acción clara para continuar con el flujo (por ejemplo, usarla como consulta en el sistema CBIR). Esto mantiene al usuario informado en todo momento y refuerza su confianza en el sistema.
+
+    \item \textbf{Consistencia visual y funcional:} Se respetaron convenciones de diseño ampliamente reconocidas: uso de etiquetas descriptivas, alineaciones verticales, botones claramente diferenciados y jerarquía visual basada en el tamaño y el color. Esto reduce el tiempo de aprendizaje y evita comportamientos inesperados.
+
+    \item \textbf{Accesibilidad y legibilidad:} Se priorizó el uso de tipografía clara, buen contraste entre texto y fondo, y tamaños adecuados de los elementos interactivos para facilitar el uso tanto en pantallas grandes como en dispositivos de menor tamaño. Asimismo, se evitó el uso de términos técnicos complejos, apostando por un lenguaje neutro y comprensible.
+
+    \item \textbf{Minimización de errores y puntos de fricción:} El flujo está diseñado para prevenir errores comunes, como el envío de prompts vacíos o duplicados. Además, en caso de fallo (por ejemplo, si no se genera una imagen), el sistema informa con mensajes explicativos que permiten al usuario comprender lo ocurrido y actuar en consecuencia.
 \end{itemize}
 
-En conjunto, estas decisiones buscan asegurar que el sistema no solo sea técnicamente funcional, sino también fácil de utilizar, confiable y accesible. El objetivo es permitir que cualquier usuario, independientemente de su formación técnica, pueda interactuar con el sistema para explorar visualmente una idea expresada mediante lenguaje natural.
+En conjunto, estas decisiones de diseño han permitido construir una interfaz que no solo es funcional, sino también intuitiva y centrada en las necesidades reales del usuario. Esto resulta especialmente importante en un sistema como este, donde se combinan tecnologías avanzadas (IA generativa y recuperación de imágenes) con una interacción aparentemente simple basada en lenguaje natural.

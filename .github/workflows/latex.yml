@@ -1,0 +1,24 @@
+name: Compile LaTeX document
+
+on:
+  push:
+    paths:
+      - '**.tex'
+      - '**.bib'
+  pull_request:
+    paths:
+      - '**.tex'
+      - '**.bib'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up LaTeX environment
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex

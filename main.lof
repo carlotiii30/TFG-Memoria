@@ -1,0 +1,49 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces Resultados en Google Imágenes}}{19}{figure.caption.4}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Imagen generada por el sistema propuesto}}{20}{figure.caption.5}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Cronograma visual del proyecto, agrupado por fases y tareas.}}{24}{figure.caption.6}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Estructura de una red neuronal}}{33}{figure.caption.9}%
+\contentsline {figure}{\numberline {5}{\ignorespaces GPT-4}}{34}{figure.caption.10}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Proceso de entrenamiento de una GAN}}{36}{figure.caption.11}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Proceso de entrenamiento de una cGAN}}{39}{figure.caption.12}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Procesamiento del lenguaje}}{42}{figure.caption.13}%
+\contentsline {figure}{\numberline {9}{\ignorespaces IA Midjourney}}{43}{figure.caption.14}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Pipeline general del modelo Stable Diffusion. Fuente: \cite {mlc2023walkthrough}}}{46}{figure.caption.15}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Diagrama de caso de uso}}{52}{figure.caption.28}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Diagrama de secuencia del uso de descriptores}}{54}{figure.caption.29}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Diagrama de secuencia de la generación de una imagen}}{54}{figure.caption.30}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Diagrama de secuencia del guardado de una imagen}}{55}{figure.caption.31}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Diagrama de secuencia del conjunto de datos COCO}}{55}{figure.caption.32}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Diagrama de secuencia del entrenamiento}}{56}{figure.caption.33}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Diagrama de secuencia de pérdidas}}{56}{figure.caption.34}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Diagrama de actividad general del sistema}}{58}{figure.caption.36}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Imágenes generadas con el modelo entrenado con MNIST}}{61}{figure.caption.38}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Curva de pérdidas durante el entrenamiento de la cGAN}}{64}{figure.caption.40}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Mejor imagen generada por AttnGAN durante el entrenamiento.}}{65}{figure.caption.41}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Imagen generada con Stable Diffusion v1.4 a partir de un prompt general}}{67}{figure.caption.43}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Ejemplos de imágenes generadas tras la especialización del modelo.}}{69}{figure.caption.44}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Resultado generado por el modelo preentrenado.}}{70}{figure.caption.45}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Resultado generado tras la especialización del modelo.}}{70}{figure.caption.46}%
+\contentsline {figure}{\numberline {26}{\ignorespaces Comparación visual del CLIP Score relativo.}}{71}{figure.caption.48}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Imagen generada por el modelo base con el prompt ``a man sitting on a bench in a park''.}}{73}{figure.caption.51}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Imagen generada por el modelo especializado con el mismo prompt.}}{73}{figure.caption.53}%
+\contentsline {figure}{\numberline {29}{\ignorespaces Arquitectura lógica del sistema integrado}}{75}{figure.caption.55}%
+\contentsline {figure}{\numberline {30}{\ignorespaces Diagrama de clases del módulo de integración en Java}}{76}{figure.caption.56}%
+\contentsline {figure}{\numberline {31}{\ignorespaces Diagrama de clases del sistema generativo en Python}}{77}{figure.caption.57}%
+\contentsline {figure}{\numberline {32}{\ignorespaces Flujo de interacción entre el usuario, la API generativa y el sistema CBIR}}{78}{figure.caption.58}%
+\contentsline {figure}{\numberline {33}{\ignorespaces Boceto: propuesta inicial del layout general}}{79}{figure.caption.59}%
+\contentsline {figure}{\numberline {34}{\ignorespaces Boceto: navegación entre secciones}}{79}{figure.caption.60}%
+\contentsline {figure}{\numberline {35}{\ignorespaces Boceto: detalle de interacción en la vista de resultados}}{80}{figure.caption.61}%
+\contentsline {figure}{\numberline {36}{\ignorespaces Wireframe: pantalla principal con área de generación}}{81}{figure.caption.62}%
+\contentsline {figure}{\numberline {37}{\ignorespaces Wireframe: visualización detallada de una imagen generada}}{81}{figure.caption.63}%
+\contentsline {figure}{\numberline {38}{\ignorespaces Wireframe: pantalla de resultados con opciones de filtrado}}{82}{figure.caption.64}%
+\contentsline {figure}{\numberline {39}{\ignorespaces Captura del prototipo desarrollado en Figma}}{83}{figure.caption.65}%
+\contentsline {figure}{\numberline {40}{\ignorespaces Inicio de la aplicación con las dos nuevas funcionalidades}}{91}{figure.caption.68}%
+\contentsline {figure}{\numberline {41}{\ignorespaces Ventana interna con área para escribir y botón de visualizar}}{92}{figure.caption.69}%
+\contentsline {figure}{\numberline {42}{\ignorespaces Ejemplo de visualización}}{93}{figure.caption.70}%
+\contentsline {figure}{\numberline {43}{\ignorespaces Escribir la descripción en la barra superior}}{93}{figure.caption.71}%
+\contentsline {figure}{\numberline {44}{\ignorespaces A la izquierda, vista del historial con una entrada seleccionada. A la derecha, la imagen generada que se abre al seleccionar esa entrada.}}{94}{figure.caption.72}%
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 

@@ -44,7 +44,15 @@ Por otro lado, en el ámbito del comercio electrónico, mejora la navegación y 
 Estos ejemplos de aplicaciones exponen la versatilidad del Sistema de Recuperación de Imágenes Basada en Contenido. Su capacidad para mejorar la experiencia del usuario, optimizar la búsqueda de productos y facilitar análisis detallados en teledetección resalta su importancia en la transformación digital actual.
 
 \subsubsection{Diferencias entre TBIR y CBIR}
-La siguiente tabla presenta una comparativa entre el enfoque estudiado (CBIR) y la recuperación de imágenes basada en texto (TBIR). Cada enfoque tiene sus propias características distintivas que afectan su eficacia, fiabilidad y escalabilidad. Esta comparativa busca ofrecer una visión general de las fortalezas y debilidades de cada enfoque, ayudando a entender mejor sus aplicaciones y limitaciones.
+En el ámbito de la recuperación de imágenes, existen dos enfoques principales que difieren significativamente en su funcionamiento: la Recuperación de Imágenes Basada en Texto (Text-Based Image Retrieval, TBIR) y la Recuperación de Imágenes Basada en Contenido (Content-Based Image Retrieval, CBIR). Ambos tienen como objetivo encontrar imágenes relevantes, pero lo hacen desde perspectivas distintas.
+
+El enfoque TBIR se basa en la utilización de anotaciones textuales asociadas a las imágenes. Estas pueden ser palabras clave, frases o descripciones completas, y suelen ser generadas manualmente por expertos. Por tanto, la calidad de la recuperación depende en gran medida de la precisión de estas anotaciones y de la interpretación semántica del lenguaje. Esto implica una alta dependencia de la intervención humana, lo que puede generar problemas de subjetividad, ambigüedad o inconsistencias entre distintas personas.
+
+Por el contrario, CBIR prescinde de anotaciones y basa su funcionamiento en el análisis automático del contenido visual de las imágenes. Este sistema extrae características como colores, formas, texturas o patrones espaciales, y utiliza medidas de similitud para comparar imágenes entre sí. Esta aproximación es más objetiva y escalable, ya que permite procesar grandes volúmenes de imágenes sin necesidad de intervención manual.
+
+En términos de eficiencia, CBIR es generalmente más rápido una vez construido, puesto que evita el costoso proceso de etiquetado. Además, al estar basado en propiedades visuales directamente extraídas de la imagen, puede alcanzar niveles de precisión más consistentes y reproducibles, aunque en ciertos casos puede carecer de la riqueza semántica que aporta el lenguaje natural en TBIR.
+
+Ambos enfoques presentan ventajas y limitaciones, y su elección depende del contexto de aplicación: TBIR puede ser más intuitivo para el usuario en sistemas donde se dispone de descripciones detalladas, mientras que CBIR resulta más útil en entornos donde la anotación manual no es viable o se requiere automatización a gran escala.
 
 \begin{table}[H]
     \centering
@@ -80,7 +88,7 @@ Las redes neuronales se basan en la simulación de la estructura y el funcionami
 
 La estructura de una red neuronal se compone de múltiples capas de neuronas interconectadas entre sí. Estas capas incluyen una capa de entrada, que recibe los datos iniciales y los introduce en la red, y una capa de salida, que produce el resultado final o la predicción deseada. Además, entre la capa de entrada y la capa de salida, puede haber una serie de capas ocultas que desempeñan un papel crucial en el procesamiento y la transformación de la información a medida que se propaga a través de la red.
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{red-neuronal.png}
     \caption{Estructura de una red neuronal}
@@ -172,7 +180,7 @@ En resumen, el proceso de entrenamiento en una GAN implica una competencia conti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{entrenamiento}
+    \includegraphics[width=1\textwidth]{entrenamiento}
     \caption{Proceso de entrenamiento de una GAN}
     \label{fig:entrenamiento-gan}
 \end{figure}
@@ -189,10 +197,10 @@ En las Redes Generativas Adversarias, el ruido juega un papel crucial en el proc
     
     \item \textbf{Calidad de la imagen}:
     \begin{itemize}
-        \item Ruido alto: Un nivel elevado de ruido puede afectar negativamente la calidad de las imágenes generadas, haciéndolas borrosas o con artefactos visibles.
-        \item Ruido bajo: Reducir el ruido puede mejorar la claridad de las imágenes, produciendo resultados más nítidos y definidos.
+        \item Ruido alto: Un nivel elevado de ruido puede afectar negativamente la calidad de las imágenes generadas, haciéndolas borrosas o con artefactos visibles. Esto ocurre especialmente cuando el scheduler no logra eliminar completamente las perturbaciones en las primeras fases del proceso de denoising.
+        \item Ruido bajo: Reducir el nivel de ruido inicial puede mejorar la claridad de las imágenes, produciendo resultados más nítidos y definidos. Sin embargo, si el ruido es demasiado bajo, el modelo podría perder capacidad para generar variedad, comprometiendo la diversidad en los resultados.
     \end{itemize}
-    
+
     \item \textbf{Capacidad de generalización}:
     \begin{itemize}
         \item Ruido alto: Un generador entrenado con entradas de ruido alto tiende a generalizar mejor, ya que se entrena a partir de una amplia gama de entradas. Esto puede mejorar su rendimiento al generar imágenes realistas en distintos contextos.

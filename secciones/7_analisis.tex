@@ -290,21 +290,28 @@ Los modelos de comportamiento permiten representar la lógica dinámica del sist
 Estos diagramas permiten visualizar cómo se comunican los distintos módulos (como la API de generación, el módulo de entrenamiento o los sistemas de almacenamiento), y ayudan a validar que las funcionalidades implementadas siguen una lógica coherente con los requisitos definidos.
 
 \subsubsection{Diagramas de secuencia}
-Los diagramas de secuencia representan interacciones temporales entre actores y componentes del sistema. Cada figura a continuación muestra un caso específico:
+
+Los diagramas de secuencia representan interacciones temporales entre los actores y los componentes internos del sistema, reflejando cómo se produce la comunicación entre ellos en distintos escenarios clave. A continuación, se presentan los diagramas más relevantes que ilustran la lógica de funcionamiento de cada flujo:
 
 \begin{itemize}
-    \item La Figura~\ref{fig:diagrama-generar} detalla el proceso completo de generación de una imagen a partir de una descripción textual.
-    \item La Figura~\ref{fig:diagrama-guardar} muestra cómo se almacena una imagen generada por el sistema.
-    \item La Figura~\ref{fig:diagrama-coco} ilustra la consulta y uso del dataset COCO como fuente de datos para entrenamiento o validación.
-    \item La Figura~\ref{fig:diagrama-secuencia-entrenamiento} explica el ciclo de entrenamiento del modelo generativo con retroalimentación continua.
-    \item La Figura~\ref{fig:diagrama-secuencia-perdidas} representa el cálculo y monitorización de las pérdidas del generador y el discriminador a lo largo de las épocas.
+    \item La Figura~\ref{fig:diagrama-descriptores} muestra el proceso mediante el cual un usuario selecciona un descriptor visual desde la interfaz del sistema. El flujo se inicia con la acción del actor, quien elige el descriptor deseado; esta solicitud se transmite al controlador de descriptores, que se encarga de procesarla y consultar al módulo correspondiente. El módulo aplica el descriptor y devuelve el resultado, que finalmente se muestra al usuario.
+    
+    \item La Figura~\ref{fig:diagrama-generar} detalla la generación de una imagen a partir de una descripción textual. El actor introduce un prompt desde la interfaz, que es enviado al controlador de generación. Este comunica la petición a la API de generación, la cual procesa el texto y genera la imagen correspondiente. El resultado es devuelto y mostrado al usuario.
+
+    \item La Figura~\ref{fig:diagrama-guardar} representa el proceso de almacenamiento de una imagen generada. El usuario elige la opción de guardar y proporciona una ruta de destino. La solicitud es gestionada por el controlador de imágenes, que delega en el sistema de archivos local la escritura del fichero. Una vez finalizado el proceso, se notifica al usuario.
+
+    \item La Figura~\ref{fig:diagrama-coco} ilustra el procedimiento para la obtención y preparación de datos desde el conjunto COCO. El sistema de gestión de datos solicita al servidor las imágenes y descripciones, las cuales se obtienen desde la base de datos. Una vez recuperados, los datos son preprocesados y enviados de vuelta listos para ser utilizados en el entrenamiento.
+
+    \item La Figura~\ref{fig:diagrama-secuencia-entrenamiento} muestra el flujo correspondiente al entrenamiento de un modelo generativo. El sistema de procesamiento de datos envía los datos al servidor de entrenamiento, donde se realiza el preprocesamiento. Posteriormente, el servidor entrena el modelo y almacena los resultados en la base de datos de modelos. Al finalizar, se notifica el éxito del entrenamiento.
+
+    \item Finalmente, la Figura~\ref{fig:diagrama-secuencia-perdidas} detalla el cálculo y monitorización de pérdidas durante el proceso de entrenamiento. A partir de la solicitud del usuario, se inicia el entrenamiento y se registran las pérdidas del generador y el discriminador. Estos valores se visualizan gráficamente y se devuelven al sistema como salida.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{diagramas/secuencia/diagrama_descriptores}
     \caption{Diagrama de secuencia del uso de descriptores}
-    \label{fig:diagrama-coco}
+    \label{fig:diagrama-descriptores}
 \end{figure}
 
 \begin{figure}[H]
@@ -342,13 +349,47 @@ Los diagramas de secuencia representan interacciones temporales entre actores y 
     \label{fig:diagrama-secuencia-perdidas}
 \end{figure}
 
+\subsubsection{Trazabilidad entre casos de uso, historias de usuario y requisitos}
+Para asegurar la coherencia entre el análisis de requisitos, las historias de usuario y los casos de uso definidos, se ha elaborado una matriz de trazabilidad. Esta permite verificar que cada funcionalidad descrita en los casos de uso responde a una necesidad real expresada por los usuarios, y que cuenta con respaldo técnico mediante los requisitos previamente establecidos. De este modo, se garantiza una cobertura completa de los objetivos del sistema y se facilita su validación durante las fases de diseño e implementación.
+
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{|c|p{4.5cm}|p{2.5cm}|p{4cm}|}
+        \hline
+        \rowcolor{gray!30}
+        \textbf{Caso de Uso} & \textbf{Descripción} & \textbf{Historias de Usuario} & \textbf{Requisitos} \\
+        \hline
+        CU1 & Generar imagen desde texto & HU1, HU3 & RF 1.1, RF 4.1, RNF 1, RNF 4 \\
+        \hline
+        CU2 & Visualizar y guardar resultados & HU3 & RF 3.1, RF 4.1, RNF 4 \\
+        \hline
+        CU3 & Configurar y mantener el sistema & HU2 & RF 2.1, RNF 2, RNF 3 \\
+        \hline
+        CU4 & Entrenamiento y evaluación de modelo & HU1 & RNF 1, RNF 2 \\
+        \hline
+        CU5 & Selección y aplicación de descriptores & HU2 & RF 2.1, RNF 3 \\
+        \hline
+    \end{tabular}
+    \caption{Relación entre casos de uso, historias de usuario y requisitos}
+    \label{tab:trazabilidad-casos-hu-req}
+\end{table}
+
 \subsubsection{Diagrama de actividad}
 La Figura~\ref{fig:diagrama-actividad} representa el flujo general de uso del sistema desde la perspectiva del usuario final. Este diagrama describe el camino típico que sigue un usuario: desde introducir una descripción, visualizar los resultados generados, hasta decidir si desea guardar o personalizar la imagen. También permite identificar puntos de decisión y posibles bifurcaciones en el flujo de interacción.
 
+El diagrama está dividido en tres columnas que representan los principales participantes del flujo: el Usuario, la Aplicación local y la API de generación. El proceso comienza con la ejecución de la aplicación, seguida de la carga de los datos necesarios. En caso de error durante esta etapa, el sistema informa al usuario y finaliza el flujo.
+
+Si la carga es exitosa, el usuario introduce una descripción textual que es recogida por la aplicación y enviada a la API. Esta procesa la información y genera una imagen, la cual es enviada codificada de vuelta a la aplicación local. Si hay un error en la generación, el sistema puede manejarlo y reportarlo.
+
+La aplicación decodifica la información recibida, muestra la imagen generada y permite al usuario visualizarla. Finalmente, el usuario puede aplicar descriptores adicionales sobre la imagen, completando así el ciclo de interacción. Este flujo refleja de manera clara y estructurada la experiencia de uso prevista para la funcionalidad principal del sistema.
+
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{diagramas/diagrama_actividad}
-    \caption{Diagrama de actividad}
+    \includegraphics[width=0.8\textwidth]{diagramas/diagrama_actividad}
+    \caption{Diagrama de actividad general del sistema}
     \label{fig:diagrama-actividad}
 \end{figure}
 
