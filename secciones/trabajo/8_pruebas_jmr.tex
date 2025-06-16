@@ -1,0 +1,76 @@
+\subsection{Pruebas del sistema de recuperación de imágenes}
+
+Tras validar la generación y la calidad de las imágenes mediante el sistema desarrollado, se procedió a evaluar su uso como punto de partida para tareas de recuperación visual dentro de la plataforma JMR. El objetivo de estas pruebas fue comprobar que las imágenes generadas por el modelo podían utilizarse eficazmente como consultas en un sistema basado en similitud visual, recuperando contenidos relevantes desde una base de datos preexistente.
+
+\subsubsection{Metodología de recuperación}
+
+Cada prueba consistió en generar una imagen a partir de un \textit{prompt} textual y utilizarla como imagen de consulta en el sistema de recuperación implementado. Para llevar a cabo la comparación visual, se utilizaron los descriptores definidos por el estándar MPEG-7, explicados previamente en el Estado del Arte (Sección~2.3). Concretamente, se aplicaron los siguientes descriptores de color:
+
+\begin{itemize}
+    \item \textbf{Descriptor de estructura de color}, que aporta sensibilidad espacial y permite diferenciar imágenes con similares proporciones de color pero distinta disposición.
+    \item \textbf{Descriptor de color escalable}, empleado en algunos casos para observar el comportamiento a distintos niveles de granularidad.
+\end{itemize}
+
+\subsubsection{Casos de prueba}
+
+A continuación se presentan tres casos representativos en los que se utilizó una imagen generada como consulta y se evaluó el resultado de la recuperación visual, teniendo en cuenta distintas casuísticas de interacción:
+
+\begin{itemize}
+    \item \textbf{Caso 1 – Recuperación de razas de perro (Golden Retriever)}:  
+    Se generó la imagen a partir del prompt \textit{``a golden retriever in the park''} y, sin visualizarla explícitamente, se utilizó directamente desde el cuadro de texto superior como imagen de consulta. El sistema recuperó imágenes de perros de aspecto y coloración similares, como se muestra en la Figura~\ref{fig:retrieval_golden}, validando la efectividad del descriptor de estructura de color para este tipo de contenido.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{pruebas/resultados_golden.png}
+        \caption{Recuperación visual a partir de la imagen generada con el prompt \textit{``a golden retriever in the park''}.}
+        \label{fig:retrieval_golden}
+    \end{figure}
+
+    \item \textbf{Caso 2 – Recuperación de patrones cromáticos abstractos}:  
+    En este experimento se usó el prompt \textit{``a lot of colorful sprinkles''}. De forma análoga al caso anterior, la búsqueda se lanzó directamente desde el cuadro de texto superior sin abrir previamente la imagen generada. A pesar de la naturaleza abstracta de la imagen, el descriptor de estructura de color fue capaz de identificar con precisión imágenes con patrones cromáticos y distribución similares. Los resultados pueden observarse en la Figura~\ref{fig:retrieval_sprinkles}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{pruebas/resultados.png}
+        \caption{Recuperación visual a partir de la imagen generada con el prompt \textit{``a lot of colorful sprinkles''}.}
+        \label{fig:retrieval_sprinkles}
+    \end{figure}
+
+    \item \textbf{Caso 3 – Recuperación de paisajes artísticos}:  
+    En este caso, la imagen fue generada con el prompt \textit{``a cloudy day''} y visualizada previamente en la ventana de imagen interna. Posteriormente, se utilizó dicha imagen visualizada como entrada para la búsqueda por similitud. La Figura~\ref{fig:retrieval_cloudy} muestra los resultados, que incluyen paisajes con estructuras visuales y cromáticas similares, reflejando la sensibilidad del sistema a los tonos verdes, marrones y grises predominantes.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{pruebas/generada_resultados.png}
+        \caption{Recuperación visual a partir de la imagen generada con el prompt \textit{``a cloudy day''}, tras visualizarla previamente en la aplicación.}
+        \label{fig:retrieval_cloudy}
+    \end{figure}
+
+\end{itemize}
+
+\subsubsection{Análisis de resultados}
+
+Los casos de prueba realizados muestran un comportamiento coherente del sistema en distintos contextos de consulta. El uso de imágenes generadas como entrada ha resultado eficaz tanto en escenas estructuradas (como retratos de animales) como en patrones visuales abstractos y paisajes artísticos.
+
+Se observó que el descriptor de estructura de color fue especialmente robusto en todos los casos, logrando identificar similitudes perceptuales relevantes incluso cuando las imágenes diferían en contenido semántico pero compartían distribuciones cromáticas o composiciones similares. En el caso del paisaje (\textit{a cloudy day}), la inclusión del descriptor de color escalable permitió una recuperación más precisa en niveles de detalle finos, especialmente al tratarse de gradientes suaves y variaciones tonales sutiles.
+
+En cuanto a las formas de interacción, tanto la búsqueda directa desde el cuadro de texto como la reutilización tras visualizar la imagen demostraron ser funcionales. La posibilidad de lanzar consultas sin necesidad de abrir manualmente la imagen generada optimiza el flujo de trabajo, mientras que la reutilización posterior ofrece flexibilidad en casos donde se desea confirmar visualmente el contenido antes de iniciar la recuperación.
+
+En resumen, los resultados refuerzan la idea de que el sistema no solo genera imágenes coherentes, sino que también las convierte en representaciones visuales útiles para tareas de recuperación basada en contenido, cerrando así el ciclo entre lenguaje natural, generación visual e indexación semántica.
+
+\subsection{Conclusiones}
+
+Los resultados obtenidos demuestran que las imágenes generadas por el sistema no solo presentan coherencia visual y semántica con los \textit{prompts} originales, sino que también son efectivas como entrada para tareas de recuperación basada en contenido visual. Esta doble funcionalidad—generación e indexación—consolida el papel del sistema como puente entre el lenguaje natural y la búsqueda visual, permitiendo transformar descripciones textuales en imágenes interpretables por algoritmos de recuperación.
+
+En los distintos casos de estudio realizados, se ha evidenciado la versatilidad del sistema ante diversos tipos de contenido:
+
+\begin{itemize}
+    \item En el caso del \textbf{golden retriever}, la imagen generada permitió recuperar con éxito otras imágenes de perros de aspecto similar, validando la capacidad del sistema para tratar conceptos visuales bien definidos y estructurados.
+    \item En la prueba con \textbf{sprinkles de colores}, se comprobó la sensibilidad del sistema a patrones cromáticos abstractos, lo que pone de manifiesto su aplicabilidad más allá de objetos concretos.
+    \item En el escenario del \textbf{paisaje nublado}, la combinación de descriptores permitió capturar matices tonales y composiciones complejas, como las propias de escenas artísticas o estilizadas.
+\end{itemize}
+
+A nivel de implementación, la utilización de los descriptores visuales definidos por MPEG-7—en particular el de \textit{estructura de color} y, en menor medida, el \textit{color escalable}—resultó una elección acertada. Ambos descriptores ofrecieron un equilibrio adecuado entre coste computacional y capacidad discriminativa, permitiendo recuperar imágenes relevantes incluso en bases de datos con alta variabilidad visual.
+
+Por otro lado, las distintas casuísticas de uso (búsqueda directa desde el cuadro de texto o reutilización tras visualización) demostraron que el sistema se adapta a diferentes flujos de trabajo, manteniendo la consistencia funcional en todos los casos.
+
+En definitiva, se ha validado que el sistema desarrollado puede integrarse eficazmente en plataformas de recuperación visual y servir como base para futuros desarrollos donde la interacción entre texto e imagen sea fundamental. Esto abre la puerta a aplicaciones en múltiples dominios como educación, accesibilidad, archivos visuales o interfaces conversacionales basadas en imágenes generadas.

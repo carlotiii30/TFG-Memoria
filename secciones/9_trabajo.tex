@@ -1,9 +1,13 @@
-\section{Desarrollo}
-El desarrollo del sistema ha supuesto un proceso iterativo en el que se han combinado técnicas de inteligencia artificial generativa, diseño de arquitectura modular y principios de integración software. El objetivo principal ha sido construir una solución capaz de generar imágenes a partir de descripciones textuales, integrándola de forma fluida en la plataforma Java Multimedia Retrieval (JMR). Para lograrlo, se abordaron distintas fases de implementación: desde la creación de una API REST funcional y flexible en Python, hasta la extensión del cliente JMR en Java para aprovechar dicho sistema generativo. Además, se prestó especial atención a aspectos relacionados con la seguridad, el rendimiento, la modularidad y la capacidad de escalado del sistema, con vistas a una posible puesta en producción.
+\section{Implementación}
+
+El desarrollo del sistema ha supuesto un proceso iterativo en el que se han combinado técnicas de inteligencia artificial generativa, diseño de arquitectura modular y principios de integración software. El objetivo principal ha sido construir una solución capaz de generar imágenes a partir de descripciones textuales, integrándola de forma fluida en la plataforma Java Multimedia Retrieval (JMR). Para lograrlo, se abordaron distintas fases de implementación: desde la creación de una API REST funcional y flexible en Python, hasta la extensión del cliente JMR en Java para aprovechar dicho sistema generativo. 
+
+El detalle completo de la implementación a nivel de código no se incluye en esta memoria, ya que el objetivo es presentar una visión general de la arquitectura, las decisiones técnicas y los retos abordados durante el desarrollo. Para consultar la implementación completa, incluyendo los scripts de entrenamiento, el servidor de inferencia, la integración con JMR y la interfaz gráfica, se han habilitado tres repositorios independientes en GitHub: \texttt{TFG}, \texttt{TFG-JMR} y \texttt{TFG-UI}, todos ellos accesibles bajo solicitud al usuario \texttt{carlotiii30}.
+
+Los enlaces y descripciones detalladas de estos repositorios pueden consultarse en el \autoref{sec:codigo-fuente}.
 
 \input{secciones/trabajo/5_api}
-
-\subsection{Pruebas y validación}
+\input{secciones/trabajo/7_jmr}
 
 \subsection{Consideraciones de seguridad y rendimiento}
 
@@ -20,6 +24,21 @@ Para asegurar un entorno de ejecución reproducible, coherente y fácilmente des
     \item Preparar el proyecto para su distribución como paquete Python, en caso de que se quisiera liberar o integrar como dependencia en otros sistemas.
 \end{itemize}
 
+\subsubsection{Contenerización y portabilidad con Docker}
+
+Para facilitar el despliegue del sistema en distintos entornos (local, servidor o nube), se ha incorporado \textbf{Docker} como herramienta de contenerización. Esto ha permitido encapsular todo el entorno de ejecución en una imagen portátil y reproducible, con las siguientes ventajas:
+
+\begin{itemize}
+    \item Elimina dependencias externas del sistema operativo anfitrión, asegurando que todas las versiones de librerías y herramientas se mantengan consistentes.
+    \item Facilita el despliegue del sistema en servidores remotos, entornos cloud o plataformas de orquestación como Kubernetes.
+    \item Permite realizar pruebas locales sin afectar al entorno del desarrollador.
+    \item Mejora la seguridad al encapsular los procesos y evitar accesos arbitrarios al sistema anfitrión.
+\end{itemize}
+
+El archivo \texttt{Dockerfile} define el entorno con precisión, incluyendo la instalación de \texttt{poetry}, las dependencias del proyecto y la ejecución del servidor con \texttt{uvicorn}. Para facilitar la ejecución, se han definido scripts automatizados que permiten iniciar el contenedor con un solo comando.
+
+Esta estrategia prepara el sistema para un despliegue más robusto y escalable en futuras fases del proyecto.
+
 \subsubsection{Seguridad en la API REST}
 
 Dado que el sistema de generación se expone a través de una interfaz web (API REST), es fundamental considerar posibles vectores de ataque relacionados con el envío de solicitudes maliciosas, el uso no autorizado o la exposición de recursos sensibles. Aunque esta versión del sistema no incluye mecanismos avanzados de autenticación o autorización, se han implementado algunas medidas preliminares de validación estructural y se identifican los siguientes aspectos clave para futuras iteraciones:
@@ -27,7 +46,7 @@ Dado que el sistema de generación se expone a través de una interfaz web (API 
 \begin{itemize}
     \item \textbf{Validación de entradas:} actualmente, FastAPI permite tipado estático de parámetros, pero no se han definido aún restricciones estrictas sobre la longitud o estructura de los textos recibidos. Esto puede derivar en uso abusivo o errores inesperados ante entradas malformadas. Se recomienda implementar validaciones adicionales a nivel de contenido y lógica.
     
-    \item \textbf{Validación de estructura de modelos:} se ha incorporado un sistema de validación estructural para los modelos subidos por el usuario. Esta validación, implementada mediante la función \texttt{validate\_model\_structure}, comprueba que la carpeta del modelo contenga todos los subdirectorios y archivos esperados —como \texttt{config.json}, \texttt{model.safetensors}, o \texttt{tokenizer\_config.json}—. Si falta alguno de estos elementos, se lanza una excepción \texttt{HTTPException} con un código de error 400, evitando así el uso de modelos incompletos o manipulados que puedan comprometer el funcionamiento del sistema.
+    \item \textbf{Validación de estructura de modelos:} se ha incorporado un sistema de validación estructural para los modelos subidos por el usuario. Esta validación, implementada mediante la función, comprueba que la carpeta del modelo contenga todos los subdirectorios y archivos esperados —como \texttt{config.json}, \texttt{model.safetensors}, o \texttt{tokenizer\_config.json}—. Si falta alguno de estos elementos, se lanza una excepción \texttt{HTTPException} con un código de error 400, evitando así el uso de modelos incompletos o manipulados que puedan comprometer el funcionamiento del sistema.
 
     \item \textbf{Control del acceso a archivos:} actualmente no se ha desarrollado un sistema de permisos que restrinja el acceso directo a imágenes generadas o modelos almacenados. El sistema confía en una organización interna de rutas, lo cual no es suficiente para prevenir accesos arbitrarios si la API se expusiera públicamente. Se recomienda proteger los endpoints y establecer rutas temporales con tokens de acceso.
 
@@ -65,5 +84,76 @@ Aunque el presente sistema ha sido desarrollado en un entorno controlado, se han
 \end{itemize}
 
 \subsubsection{Reflexión final}
-
 Estas medidas y estrategias no solo han permitido desarrollar un sistema funcional en el presente, sino que establecen las bases para una posible evolución futura hacia un servicio robusto y escalable. La combinación de buenas prácticas en gestión de entornos, principios básicos de seguridad y una arquitectura eficiente posiciona este proyecto como un prototipo avanzado, listo para crecer hacia escenarios reales de uso y despliegue institucional o comercial.
+
+
+\subsection{Pruebas y validación}
+
+Para validar el correcto funcionamiento del sistema desarrollado, se han realizado pruebas tanto sobre la API REST de generación como sobre la integración completa dentro de la plataforma Java JMR. Estas pruebas tenían como objetivo verificar la funcionalidad de los endpoints, la integridad del flujo de generación, la correcta gestión del historial y la interacción con la base de datos visual.
+
+\subsubsection{Pruebas sobre la API REST}
+
+La API desarrollada con \texttt{FastAPI} cuenta con una interfaz interactiva (Swagger UI), accesible en \texttt{/docs}, desde la cual es posible probar directamente todos los endpoints definidos. Se realizaron pruebas manuales de los principales puntos del sistema:
+
+\begin{itemize}
+    \item \textbf{GET /models/list/}: verifica que la API devuelve correctamente los modelos disponibles. En la prueba, se recibió el modelo por defecto \texttt{"stable"}.
+
+    \item \textbf{POST /images/generate/}: permite generar una imagen a partir de un prompt textual. En la prueba realizada se utilizó el prompt \textit{"a sunset on the beach"} con parámetros por defecto. La respuesta fue satisfactoria, devolviendo el nombre del archivo generado.
+
+    \item \textbf{GET /images/download/\{image\_name\}}: descarga la imagen generada, lo que permitió comprobar la existencia y legibilidad del archivo.
+
+    \item \textbf{Manejo de errores}: se realizaron pruebas con modelos inexistentes, prompts vacíos o estructuras incorrectas. La API devolvió códigos HTTP coherentes (400 o 422) y mensajes de error controlados, como se especifica en la validación estructural.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{api/list_models.png}
+    \caption{Prueba del endpoint \texttt{GET /models/list/} desde Swagger}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{api/generate_image.png}
+    \caption{Prueba del endpoint \texttt{POST /images/generate/} con prompt textual}
+\end{figure}
+
+Además de estas pruebas manuales, se desarrollaron tests automáticos utilizando \texttt{pytest} para las funciones internas del servidor, incluyendo validaciones sobre el manejo de prompts, la existencia del modelo solicitado y la correcta generación y localización de las imágenes. Estos tests permitieron asegurar la estabilidad del sistema ante cambios futuros y facilitar su mantenimiento.
+
+
+\subsubsection{Pruebas en la aplicación JMR}
+
+La validación funcional dentro de la interfaz gráfica de JMR se llevó a cabo comprobando las siguientes funcionalidades:
+
+\begin{itemize}
+    \item \textbf{Selección de API local/online}: se comprobó que el sistema gestionaba correctamente el cambio entre API, solicitando el token cuando era necesario y manteniendo el estado activo durante la sesión.
+
+    \item \textbf{Generación desde interfaz}: se probó la creación de una imagen a partir de un prompt, observando la aparición automática en la ventana interna junto con la actualización del historial.
+
+    \item \textbf{Consulta sin visualización}: se utilizó el cuadro de texto superior para lanzar una búsqueda desde descripción sin visualizar la imagen. El sistema generó correctamente la imagen en segundo plano y devolvió los resultados similares en la base de datos.
+
+    \item \textbf{Historial de imágenes}: se validó que las entradas quedaban correctamente almacenadas, eran accesibles desde el desplegable, y al seleccionarlas se abría la ventana correspondiente.
+
+    \item \textbf{Reutilización de imágenes generadas}: se reutilizaron imágenes del historial para lanzar nuevas consultas, sin volver a generar los archivos en disco.
+
+    \item \textbf{Errores controlados}: se forzaron errores como prompts vacíos, imágenes eliminadas o modelos mal estructurados, observando que el sistema respondía con mensajes claros sin bloquear la aplicación.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{api/prompt_vacio.png}
+    \caption{Mensaje de error al intentar generar un prompt vacío}
+\end{figure}
+
+\subsubsection{Validación de consistencia e integridad}
+
+Para confirmar que el sistema funcionaba de forma coherente y sin redundancias, se realizaron pruebas cruzadas:
+
+\begin{itemize}
+    \item Se compararon imágenes generadas con prompts similares para validar la coherencia del modelo.
+    \item Se comprobó que no se duplicaban archivos si se reutilizaba el mismo prompt.
+    \item Se examinó el rendimiento en generación en entorno local y se registró el tiempo medio de respuesta.
+\end{itemize}
+
+\subsubsection{Conclusión}
+
+Las pruebas realizadas han demostrado que el sistema es funcional, coherente y robusto en entornos controlados. La API responde adecuadamente ante entradas válidas y malformadas, mientras que la integración con JMR mantiene una experiencia fluida para el usuario final. Aunque aún pueden incorporarse mecanismos adicionales de seguridad y autenticación, el sistema se encuentra en un estado válido para su uso en escenarios de validación funcional y pruebas de concepto.

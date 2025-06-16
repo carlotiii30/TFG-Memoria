@@ -1,4 +1,4 @@
-\section{Análisis del problema}
+\section{Requisitos y análisis}
 El análisis del sistema es una etapa esencial en el desarrollo de software. En esta se examinan las necesidades, requisitos y funcionalidades del sistema a implementar, ayudando a la comprensión de los usuarios finales, sus contextos de uso y los objetivos que esperan alcanzar.
 
 \subsection{Especificación de requisitos}
@@ -171,7 +171,7 @@ La Tabla~\ref{tab:hu01} presenta el caso de un investigador, cuyo objetivo es ex
         \hline
         \textbf{Necesidad} & Desarrollar y evaluar modelos de generación de imágenes a partir de texto para integrarlos en una plataforma de recuperación de información visual (JMR) \\
         \hline
-        \textbf{Funcionalidades requeridas} & Implementar un modelo optimizado para generación de imágenes basada en descripciones textuales
+        \textbf{Funcionalidades} & Implementar un modelo optimizado para generación de imágenes basada en descripciones textuales
         \\ & Evaluar la precisión y coherencia de las imágenes generadas en relación a la descripción
         \\ & Proporcionar un módulo de prueba y validación de las imágenes generadas antes de la integración en la JMR \\
         \hline
@@ -196,7 +196,7 @@ La Tabla~\ref{tab:hu02} aborda el punto de vista del administrador de la JMR, re
         \hline
         \textbf{Necesidad} & Integrar un sistema de generación de imágenes a partir de texto que sea compatible con la infraestructura actual de la JMR \\
         \hline
-        \textbf{Funcionalidades requeridas} & Implementar una interfaz de usuario intuitiva que permita a los usuarios ingresar descripciones textuales para la generación de imágenes
+        \textbf{Funcionalidades} & Implementar una interfaz de usuario intuitiva que permita a los usuarios ingresar descripciones textuales para la generación de imágenes
         \\ & Asegurar la compatibilidad y escalabilidad del módulo de generación de imágenes dentro de la infraestructura existente de la JMR
         \\ & Supervisar el rendimiento y la estabilidad del sistema para garantizar una experiencia fluida al usuario \\
         \hline
@@ -221,7 +221,7 @@ Por último, en la Tabla~\ref{tab:hu03} se presenta al usuario final, quien se b
         \hline
         \textbf{Necesidad} & Utilizar un sistema que permita recuperar imágenes relevantes basadas en descripciones textuales para apoyar investigaciones o proyectos específicos \\
         \hline
-        \textbf{Funcionalidades requeridas} & Generar imágenes basadas en consultas textuales específicas que describan escenarios, objetos o características
+        \textbf{Funcionalidades} & Generar imágenes basadas en consultas textuales específicas que describan escenarios, objetos o características
         \\ & Acceder a una interfaz intuitiva que permita introducir consultas de texto y visualizar resultados de forma rápida y precisa
         \\ & Poder almacenar o compartir las imágenes generadas para análisis posterior o trabajo colaborativo \\
         \hline
@@ -238,32 +238,29 @@ El conjunto de estas historias permite cubrir una perspectiva holística del sis
 \begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{1.4}
-    \begin{tabular}{|c|p{6cm}|c|}
-        \hline
+    \begin{tabular}{cp{6cm}c}
         \rowcolor{gray!30}
         \textbf{Código del Requisito} & \textbf{Descripción resumida} & \textbf{Historia de Usuario} \\
-        \hline
+        \rowcolor{gray!10}
         RF 1.1 & Generación de imágenes a partir de texto & HU1, HU3 \\
-        \hline
+        \addlinespace
         RF 2.1 & Integración con la plataforma JMR & HU2 \\
-        \hline
+        \rowcolor{gray!10}
         RF 3.1 & Almacenamiento y etiquetado de imágenes & HU3 \\
-        \hline
-        RF 4.1 & Interfaz de usuario intuitiva y accesible & HU2, HU3 \\
-        \hline
-        RNF 1 & Eficiencia y rendimiento en la generación & HU1, HU2 \\
-        \hline
+        \addlinespace
+        RF 4.1 & Interfaz intuitiva y accesible & HU2, HU3 \\
+        \rowcolor{gray!10}
+        RNF 1 & Eficiencia y rendimiento & HU1, HU2 \\
+        \addlinespace
         RNF 2 & Mantenimiento modular del sistema & HU2 \\
-        \hline
+        \rowcolor{gray!10}
         RNF 3 & Compatibilidad con la infraestructura JMR & HU2 \\
-        \hline
+        \addlinespace
         RNF 4 & Accesibilidad y experiencia de usuario & HU3 \\
-        \hline
     \end{tabular}
     \caption{Relación entre requisitos y sus historias de usuario}
     \label{tab:req-hu}
 \end{table}
-
 
 \subsection{Modelo de caso de uso}
 El modelo de caso de uso presentado en la Figura~\ref{fig:caso-uso} muestra las interacciones principales entre los actores y las funcionalidades del sistema de generación de imágenes a partir de texto integrado en la plataforma JMR. Este diagrama incluye la generación de imágenes desde una descripción textual, la visualización y personalización de resultados, el uso opcional de descriptores avanzados ofrecidos por la JMR, y la posibilidad de guardar o reutilizar las imágenes generadas.
@@ -356,21 +353,19 @@ Para asegurar la coherencia entre el análisis de requisitos, las historias de u
 \begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{1.4}
-    \begin{tabular}{|c|p{4.5cm}|p{2.5cm}|p{4cm}|}
-        \hline
+    \begin{tabular}{cp{4.5cm}p{2.5cm}p{4cm}}
         \rowcolor{gray!30}
         \textbf{Caso de Uso} & \textbf{Descripción} & \textbf{Historias de Usuario} & \textbf{Requisitos} \\
-        \hline
+        \rowcolor{gray!10}
         CU1 & Generar imagen desde texto & HU1, HU3 & RF 1.1, RF 4.1, RNF 1, RNF 4 \\
-        \hline
+        \addlinespace
         CU2 & Visualizar y guardar resultados & HU3 & RF 3.1, RF 4.1, RNF 4 \\
-        \hline
+        \rowcolor{gray!10}
         CU3 & Configurar y mantener el sistema & HU2 & RF 2.1, RNF 2, RNF 3 \\
-        \hline
+        \addlinespace
         CU4 & Entrenamiento y evaluación de modelo & HU1 & RNF 1, RNF 2 \\
-        \hline
+        \rowcolor{gray!10}
         CU5 & Selección y aplicación de descriptores & HU2 & RF 2.1, RNF 3 \\
-        \hline
     \end{tabular}
     \caption{Relación entre casos de uso, historias de usuario y requisitos}
     \label{tab:trazabilidad-casos-hu-req}

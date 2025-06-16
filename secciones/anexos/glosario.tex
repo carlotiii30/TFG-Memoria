@@ -1,6 +1,7 @@
 \section{Glosario de términos}
 
 \subsection{Modelado y entrenamiento}
+
 \textbf{Batch}: Conjunto de ejemplos utilizados en una sola iteración de entrenamiento. El uso de batches permite un entrenamiento más eficiente y estable.
 
 \vspace{5mm}
@@ -37,9 +38,13 @@
 
 \vspace{5mm}
 
+\textbf{Prompt}: Entrada textual que se utiliza como condición o guía para que un modelo generativo produzca una imagen. Los prompts describen el contenido esperado de forma natural o estructurada, y su calidad influye directamente en la coherencia semántica de la salida.
+
+\vspace{5mm}
 
 \subsection{Redes neuronales y arquitectura}
-\textbf{Conditional Generative Adversarial Network}: Tipo de red neuronal generativa que, a partir de un conjunto de datos y una condición específica, genera nuevas muestras similares a las del conjunto de datos original, condicionadas por etiquetas.
+
+\textbf{Conditional Generative Adversarial Network (cGAN)}: Tipo de red neuronal generativa que, a partir de un conjunto de datos y una condición específica, genera nuevas muestras similares a las del conjunto de datos original, condicionadas por etiquetas.
 
 \vspace{5mm}
 
@@ -71,8 +76,20 @@
 
 \vspace{5mm}
 
+\textbf{Atención (Attention)}: Mecanismo utilizado en redes neuronales que permite al modelo centrarse en las partes más relevantes de una secuencia de entrada. En generación de imágenes condicionadas por texto, la atención permite al modelo alinear palabras concretas del prompt con regiones específicas de la imagen.
+
+\vspace{5mm}
+
+\textbf{Stable Diffusion}: Modelo generativo basado en técnicas de difusión que transforma ruido aleatorio en imágenes coherentes guiadas por texto. Se entrena para invertir un proceso de degradación iterativa (ruido progresivo) y reconstruir imágenes de alta calidad a partir de descripciones.
+
+\vspace{5mm}
+
+\textbf{GAN (Generative Adversarial Network)}: Arquitectura de red neuronal compuesta por dos componentes —generador y discriminador— que compiten entre sí. El generador intenta crear datos falsos convincentes mientras que el discriminador aprende a distinguirlos de los datos reales.
+
+\vspace{5mm}
 
 \subsection{Datasets y datos}
+
 \textbf{COCO (Common Objects in Context)}: Conjunto de datos que contiene imágenes con anotaciones detalladas. Incluye más de 330.000 imágenes con etiquetas y una resolución estándar de aproximadamente 640x480 píxeles.
 
 \vspace{5mm}
@@ -85,8 +102,12 @@
 
 \vspace{5mm}
 
+\textbf{Imagen sintética}: Imagen generada artificialmente mediante modelos de IA en lugar de capturada por dispositivos físicos. Se utiliza tanto para evaluación como para enriquecer datasets en tareas de clasificación o recuperación.
+
+\vspace{5mm}
 
 \subsection{Interfaz y diseño}
+
 \textbf{Socket}: Interfaz de software que permite la comunicación entre dos aplicaciones a través de una red. Define un punto final para la comunicación, especificando la dirección IP y el puerto en el que una aplicación escucha o envía datos.
 
 \vspace{5mm}
@@ -95,3 +116,6 @@
 
 \vspace{5mm}
 
+\textbf{JMR (Java Multimedia Retrieval)}: Plataforma de recuperación multimedia desarrollada en Java que permite realizar búsquedas basadas en similitud visual mediante el uso de descriptores. En este trabajo, ha sido extendida para integrar capacidades de generación de imágenes a partir de texto.
+
+\vspace{5mm}

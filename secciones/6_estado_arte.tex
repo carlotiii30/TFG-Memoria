@@ -79,6 +79,62 @@ Ambos enfoques presentan ventajas y limitaciones, y su elección depende del con
     \label{tab:tbir-cbir}
 \end{table}
 
+\subsection{Descriptores visuales de bajo nivel}
+
+En el contexto de la recuperación de información visual, los descriptores constituyen una herramienta fundamental para representar el contenido de una imagen de forma computacionalmente interpretable. Su propósito es establecer una correspondencia entre los píxeles que conforman la imagen y los conceptos visuales que los humanos pueden percibir, clasificar y comparar. Esta representación intermedia es clave en tareas como la búsqueda de imágenes por similitud, la clasificación automática o la generación de anotaciones semánticas.
+
+Siguiendo el estándar MPEG-7, ampliamente adoptado para la descripción de contenidos multimedia, los descriptores visuales se agrupan en dos categorías principales:
+
+\begin{itemize}
+    \item \textbf{Descriptores de información general}: engloban características visuales de bajo nivel como el color, la forma, la textura o la distribución espacial de estos atributos. Son independientes del dominio y pueden aplicarse a cualquier tipo de imagen.
+    \item \textbf{Descriptores de información específica de dominio}: están orientados a representar información sobre objetos, escenas o eventos particulares, incluyendo personas, acciones o relaciones espaciales concretas entre elementos de la imagen.
+\end{itemize}
+
+Dado que este trabajo se enmarca en el desarrollo de un sistema de recuperación y generación de imágenes de propósito general, se ha optado por utilizar descriptores de información general, y en particular aquellos centrados en el análisis del color. Esta elección se justifica tanto por su bajo coste computacional como por su elevada capacidad discriminativa en tareas de recuperación por similitud perceptual.
+
+\subsubsection{Representación visual según MPEG-7}
+
+MPEG-7 (Multimedia Content Description Interface) es un estándar desarrollado por el grupo MPEG del consorcio ISO/IEC, diseñado específicamente para permitir la descripción estructural y semántica de contenidos audiovisuales. Proporciona un marco unificado para representar tanto metadatos de catálogo (como título o autor), como propiedades visuales y auditivas extraídas automáticamente.
+
+Dentro de este marco, los descriptores visuales de bajo nivel permiten codificar numéricamente aspectos como el color, la forma o la textura de una imagen. Esta codificación facilita tareas de indexación, búsqueda, filtrado o clasificación de contenidos visuales a gran escala.
+
+A continuación se describen los principales descriptores de color definidos en MPEG-7 y utilizados en este proyecto.
+
+\subsubsection{Descriptor de color dominante}
+
+Este descriptor proporciona una representación concisa de los colores más relevantes presentes en una imagen o región. A diferencia de un histograma tradicional que considera la frecuencia absoluta de todos los colores, el descriptor de color dominante selecciona un número reducido de colores representativos, junto con información adicional que permite caracterizar su distribución y coherencia espacial.
+
+Se define mediante una colección de tuplas:
+
+\[
+F = \{ (C_i, P_i, V_i), s \}, \quad i = 1, 2, ..., N
+\]
+
+donde:
+\begin{itemize}
+    \item $C_i$: color dominante representado como un vector en un espacio de color determinado (por ejemplo RGB o YCbCr).
+    \item $P_i$: proporción de píxeles que presentan el color $C_i$.
+    \item $V_i$: variación del color respecto al dominante (opcional).
+    \item $s$: medida de coherencia espacial del color en la imagen (opcional).
+\end{itemize}
+
+Este descriptor es útil en aplicaciones donde el color global o los tonos dominantes son claves para la recuperación, como en catálogos de productos, arte o publicidad visual.
+
+\subsubsection{Descriptor de color escalable}
+
+El descriptor de color escalable representa la distribución de color global mediante un histograma codificado de forma jerárquica, lo que permite un ajuste progresivo de la precisión frente al coste computacional. Está basado en la aplicación de una transformada de Haar sobre el histograma de color generado en el espacio HSV.
+
+Su diseño permite trabajar a diferentes niveles de detalle, siendo especialmente adecuado para sistemas que operan con distintas capacidades de almacenamiento o procesamiento. A mayor número de bits utilizados, mayor precisión en la representación y en la recuperación de imágenes similares.
+
+\subsubsection{Descriptor de estructura de color}
+
+Este descriptor extiende el concepto de histograma de color al incorporar información sobre la disposición espacial de los colores. Para ello, aplica una ventana deslizante sobre la imagen y contabiliza no solo la presencia de colores, sino también su estructura local.
+
+Captura, por tanto, tanto la distribución global como los patrones espaciales de color, lo que le permite diferenciar imágenes que comparten la misma proporción cromática pero presentan composiciones visuales diferentes. Esta propiedad lo convierte en una herramienta potente para tareas de clasificación y búsqueda con sensibilidad estructural.
+
+\medskip
+
+\noindent En resumen, los descriptores visuales definidos por MPEG-7 proporcionan una base sólida para representar imágenes de forma eficiente y discriminativa. En el marco de este trabajo, se han seleccionado y utilizado aquellos basados en el color por su equilibrio entre expresividad, coste computacional y aplicabilidad general. Su uso ha sido clave tanto para tareas de recuperación de imágenes como para establecer representaciones intermedias en los procesos de generación asistida por IA.
 
 \subsection{Redes Neuronales}
 En el ámbito de la inteligencia artificial y el aprendizaje automático, las redes neuronales han surgido como una potente herramienta para modelar y analizar datos complejos. Representan una vanguardia en estos campos, impulsando innovaciones tecnológicas y transformando la manera en que interactuamos con la información y el mundo que nos rodea.

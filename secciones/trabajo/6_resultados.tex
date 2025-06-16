@@ -11,8 +11,8 @@ La imagen generada por el modelo base presenta notables defectos: desalineación
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{golden_retriever_before.png}
-    \caption{Resultado generado por el modelo preentrenado.}
+    \includegraphics[width=0.3\textwidth]{golden_retriever_before.png}
+    \caption{Resultado generado por el modelo preentrenado para el prompt: \textit{``a photo of a golden retriever''}.}
     \label{fig:golden-before}
 \end{figure}
 
@@ -21,8 +21,8 @@ Tras aplicar la técnica de modificación del espacio latente, el modelo fue cap
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{golden_retriever_after.png}
-    \caption{Resultado generado tras la especialización del modelo.}
+    \includegraphics[width=0.3\textwidth]{golden_retriever_after.png}
+    \caption{Resultado generado tras la especialización del modelo para el prompt: \textit{``a photo of a golden retriever''}.}
     \label{fig:golden-after}
 \end{figure}
 
@@ -104,8 +104,8 @@ El modelo preentrenado genera una escena coherente: un hombre de espaldas sentad
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{man_before.png}
-    \caption{Imagen generada por el modelo base con el prompt ``a man sitting on a bench in a park''.}
+    \includegraphics[width=0.4\textwidth]{man_before.png}
+    \caption{Imagen generada por el modelo base con el prompt \textit{``a man sitting on a bench in a park''.}}
     \label{fig:man-before}
 \end{figure}
 
@@ -114,10 +114,12 @@ Tras la especialización en razas de perro, el modelo mantiene su capacidad para
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{man_after.png}
-    \caption{Imagen generada por el modelo especializado con el mismo prompt.}
+    \includegraphics[width=0.4\textwidth]{man_after.png}
+    \caption{Imagen generada por el modelo especializado con el mismo prompt: \textit{``a man sitting on a bench in a park''}.}
     \label{fig:man-after}
 \end{figure}
 
 \paragraph{\textbf{Conclusión}} \mbox{}\\[0.5em]
 La comparación cualitativa sugiere que el modelo mantiene una buena capacidad de generalización tras la especialización. Es capaz de generar imágenes coherentes incluso para descripciones no incluidas en el entrenamiento, lo que refuerza la aplicabilidad del enfoque de DreamBooth en contextos donde es crucial preservar el conocimiento base del modelo.
+
+\input{secciones/trabajo/8_pruebas_jmr.tex}

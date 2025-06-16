@@ -54,23 +54,46 @@ Dado que el sistema combina componentes en dos lenguajes distintos, se ha docume
 
 \subsubsection{Modelo de clases en Java}
 
-El modelo de clases Java describe la estructura de la aplicación cliente (JMR) y su interacción con la API de generación de imágenes. En el centro se encuentra la clase \texttt{MainWindow}, que representa la interfaz principal y gestiona el estado de la aplicación, las ventanas internas y la interacción del usuario con los prompts generativos.
+El modelo de clases Java desarrollado para este proyecto abarca dos niveles complementarios de abstracción: por un lado, la lógica de integración con el sistema generativo a través de descriptores de imagen; por otro, la estructura de la interfaz gráfica (JMR) que permite la interacción del usuario con dicho sistema.
 
-La clase \texttt{MainWindow} se conecta con:
+\medskip
+
+En primer lugar, el diseño de la jerarquía de descriptores se recoge en la \autoref{fig:clases-descriptores}. En el centro de esta jerarquía se encuentra la clase abstracta \texttt{AbstractPromptImageDescriptor}, que encapsula el flujo completo desde el prompt textual hasta la generación de la imagen y la extracción de sus descriptores visuales. Esta clase proporciona una interfaz común para todos los descriptores generativos, y delega en sus subclases la implementación concreta del método de generación.
+
+Dos implementaciones heredan de esta clase:
 \begin{itemize}
-\item \texttt{PromptGeneratedImageDescriptor} y \texttt{PromptGeneratedImageDescriptorLocal}, que encapsulan la lógica para realizar consultas generativas, ya sea mediante una API online o una versión local del modelo.
-\item \texttt{ImagePromptItem}, que almacena información sobre cada prompt generado y facilita su reutilización.
+    \item \texttt{PromptGeneratedImageDescriptor}, que realiza llamadas a una API REST para generar la imagen desde un modelo online.
+    \item \texttt{PromptGeneratedImageDescriptorLocal}, que opera contra una instancia local de la API, útil en entornos sin conectividad externa.
 \end{itemize}
 
-Estas clases se encargan de gestionar tanto los datos visuales como los metadatos asociados (prompts, rutas, respuestas HTTP). Además, se incluyen clases auxiliares como \texttt{Circulo}, utilizadas en otras funcionalidades del sistema visual de JMR, pero que se mantienen desacopladas del módulo generativo.
-
-Este diseño modular permite que la interfaz pueda comunicarse con diferentes fuentes de generación de imágenes sin modificar la lógica principal, facilitando la escalabilidad y la extensión futura del sistema.
+Ambos descriptores se apoyan en clases como \texttt{DescriptorList} y utilizan un \texttt{Comparator} genérico para facilitar la comparación y evaluación posterior de las imágenes generadas. Esta arquitectura está diseñada para ser fácilmente extensible, permitiendo incorporar nuevos mecanismos de generación sin alterar el resto del sistema.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{diagrama_clases_java}
-\caption{Diagrama de clases del módulo de integración en Java}
-\label{fig:clases-java}
+    \centering
+    \includegraphics[width=0.9\textwidth]{diagramas/diagrama_clases_descriptores.png}
+    \caption{Diagrama de clases de los descriptores generativos en Java}
+    \label{fig:clases-descriptores}
+\end{figure}
+
+\medskip
+
+Por otro lado, la estructura de la interfaz de usuario de JMR se representa en la \autoref{fig:clases-java}. En este nivel, la clase principal \texttt{MainWindow} actúa como núcleo de la aplicación cliente, gestionando la inicialización de componentes, el manejo de ventanas internas y la interacción con el usuario. Esta clase instancia los descriptores adecuados en función del modo seleccionado (local u online) y se comunica con el resto de la interfaz para mostrar, almacenar y reutilizar los resultados generados.
+
+\texttt{MainWindow} interactúa con las siguientes clases clave:
+\begin{itemize}
+    \item \texttt{PromptWindow}, que permite introducir prompts y lanzar la generación.
+    \item \texttt{InternalWindow} y \texttt{ListInternalWindow}, dedicadas a mostrar imágenes individuales o resultados de búsqueda visual.
+    \item \texttt{ImagePromptItem}, que almacena pares prompt-imagen y facilita su recuperación desde el historial.
+    \item Clases auxiliares como \texttt{Circulo} o \texttt{ColorSetPanel}, utilizadas en funcionalidades visuales complementarias.
+\end{itemize}
+
+Este diseño modular facilita la independencia entre interfaz y lógica generativa, lo que permite actualizar o sustituir el backend sin necesidad de modificar la interfaz. Asimismo, permite escalar el sistema hacia nuevos escenarios de uso o modelos generativos adicionales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diagramas/diagrama_clases_java.png}
+    \caption{Diagrama de clases del módulo de integración en Java}
+    \label{fig:clases-java}
 \end{figure}
 
 \subsubsection{Modelo de clases en Python}
@@ -97,7 +120,7 @@ Este enfoque facilita la mantenibilidad del sistema y su extensión a nuevas fun
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{diagrama_clases_python}
+\includegraphics[width=0.95\textwidth]{diagramas/diagrama_clases_python}
 \caption{Diagrama de clases del sistema generativo en Python}
 \label{fig:clases-python}
 \end{figure}
@@ -156,7 +179,7 @@ La primera pantalla corresponde al escritorio o ventana principal del sistema. E
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{wireframes/wireframe1.png}
+    \includegraphics[width=0.7\textwidth]{wireframes/wireframe1.png}
     \caption{Wireframe: pantalla principal con área de generación}
     \label{fig:wireframe1}
 \end{figure}

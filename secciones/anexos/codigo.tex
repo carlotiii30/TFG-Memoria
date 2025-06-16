@@ -1,0 +1,20 @@
+\section{Código fuente del sistema desarrollado}
+\label{sec:codigo-fuente}
+
+El desarrollo del sistema se ha dividido en tres módulos principales, cada uno gestionado mediante un repositorio independiente en GitHub. A continuación se describen los repositorios y su contenido:
+
+\begin{itemize}
+    \item \textbf{Backend generativo (Python)} \\
+    Repositorio: \url{https://github.com/carlotiii30/TFG} \\
+    Contiene la implementación completa del sistema de generación de imágenes. Incluye los scripts de entrenamiento, el servidor de inferencia desarrollado con FastAPI, y la configuración del entorno mediante Poetry y Docker. Este componente gestiona el uso de modelos preentrenados como Stable Diffusion.
+
+    \item \textbf{Extensión JMR (Java)} \\
+    Repositorio: \url{https://github.com/carlotiii30/TFG-JMR} \\
+    Desarrollado como una ampliación de la plataforma Java Multimedia Retrieval (JMR), este módulo integra el acceso a la API generativa. Implementa la lógica de envío de prompts, gestión de imágenes generadas y visualización dentro de la aplicación JMR.
+
+    \item \textbf{Interfaz gráfica de usuario (Java)} \\
+    Repositorio: \url{https://github.com/carlotiii30/TFG-UI} \\
+    Aplicación Java diseñada como capa de presentación para el usuario final. Permite introducir descripciones textuales, lanzar consultas de generación y visualizar los resultados de forma intuitiva y accesible.
+\end{itemize}
+
+\noindent Todos los repositorios están actualmente marcados como privados. Para su revisión académica, el acceso puede ser concedido bajo solicitud al usuario de GitHub \texttt{carlotiii30}.

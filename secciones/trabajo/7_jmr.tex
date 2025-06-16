@@ -1,11 +1,92 @@
-subsection{Integración con la plataforma JMR (Java)}
+\subsection{Integración con la plataforma JMR (Java)}
 
-Una parte fundamental del proyecto ha sido la integración del sistema generativo con la plataforma Java existente. Esta integración permite que los usuarios realicen consultas semánticas mediante texto directamente desde la interfaz gráfica de JMR, obteniendo como respuesta imágenes generadas que pueden visualizarse, guardarse o utilizarse como base para búsquedas visuales.
+Una parte clave del proyecto ha sido extender la plataforma Java Multimedia Retrieval (JMR) para permitir la generación de imágenes a partir de descripciones textuales. Esta funcionalidad ha sido implementada respetando la arquitectura modular existente y proporcionando una experiencia de usuario coherente con el resto del sistema.
 
-El cliente Java se ha ampliado mediante un módulo específico que gestiona la conexión con la API de generación. Este módulo:
+\subsubsection{Arquitectura de integración}
+
+El flujo completo de integración entre la interfaz y el sistema generativo se basa en la arquitectura descrita previamente en la Figura~\ref{fig:clases-java}. Según dicho esquema, la estructura se traduce en una serie de componentes interconectados que permiten gestionar el envío de prompts, la visualización de resultados y la reutilización de imágenes generadas.
+
+A continuación se describen los principales elementos que componen esta arquitectura:
 
 \begin{itemize}
-    \item Incorpora nuevas entradas en la barra de herramientas que permiten escribir descripciones textuales.
-    \item Incluye un sistema de menús para seleccionar el tipo de API (local o en línea) y configurar el token si es necesario.
-    \item Añade nuevos tipos de ventanas internas (\texttt{InternalWindow}) para mostrar los resultados generados, gestionando adecuadamente la visualización, el guardado y el uso posterior de las imágenes.
+    \item \textbf{Clase \texttt{MainWindow}}: se encarga de inicializar los componentes principales de la interfaz. Gestiona el cambio entre API local y online mediante un sistema de menús interactivo, permitiendo introducir un token cuando se selecciona la API online.
+    
+    \item \textbf{Clase \texttt{PromptWindow}}: ventana interna dedicada a la generación de imágenes. Incluye un cuadro de texto para el prompt, una imagen por defecto y un botón para lanzar la generación. La imagen generada se actualiza en la misma ventana, y el prompt se guarda automáticamente.
+
+    \item \textbf{Clase \texttt{InternalWindow}}: subclase personalizada de ventana interna que permite visualizar las imágenes generadas y contiene la lógica necesaria para gestionarlas (título, visualización, reuso, etc.).
+
+    \item \textbf{Clase \texttt{ImagePromptItem} y \texttt{ImagePromptListRenderer}}: definen la estructura visual y funcional del historial. Cada entrada del historial representa un par imagen-prompt, y puede seleccionarse para su reutilización.
+
+    \item \textbf{Clase \texttt{ListInternalWindow}}: muestra visualmente los resultados de una consulta en la base de datos a partir de una imagen generada, en el caso de realizar una búsqueda sin visualización explícita.
 \end{itemize}
+
+\subsubsection{Flujo de generación de imagen}
+
+Cuando el usuario accede a la opción \texttt{Generar Imagen}, se abre una instancia de \texttt{PromptWindow}. Esta ventana contiene:
+
+\begin{itemize}
+    \item Un cuadro de texto para introducir la descripción (prompt).
+    \item Una imagen de marcador por defecto.
+    \item Un botón que al pulsarse envía una petición HTTP a la API REST configurada (local u online) usando el prompt indicado.
+\end{itemize}
+
+La respuesta es una imagen en binario que se muestra en la misma ventana y se almacena localmente. Además, se añade una nueva entrada al historial mediante una instancia de \texttt{ImagePromptItem}, que queda registrada para consultas posteriores desde un menú desplegable.
+
+\subsubsection{Selección y gestión de la API}
+
+Desde el menú superior de la clase \texttt{MainWindow}, el usuario puede seleccionar si desea usar una API local o remota:
+
+\begin{itemize}
+    \item Al seleccionar \texttt{Online API}, se abre un cuadro de diálogo solicitando un token. Si se proporciona correctamente, se guarda para las siguientes peticiones.
+    \item Si se cancela o el token es inválido, el sistema vuelve automáticamente a \texttt{Local API}.
+\end{itemize}
+
+Este mecanismo asegura que la opción activa siempre sea válida, y se mantiene durante toda la sesión.
+
+\subsubsection{Consulta sin visualización}
+
+En el caso de realizar una consulta directa (sin mostrar la imagen), el prompt se toma del cuadro de texto principal y se lanza una generación en segundo plano. La imagen generada se usa como entrada para una búsqueda visual mediante el motor de recuperación de JMR. Los resultados se muestran en una instancia de \texttt{ListInternalWindow}, sin mostrar la imagen generada al usuario.
+
+\subsubsection{Historial reutilizable}
+
+El historial se gestiona mediante una lista desplegable que utiliza un renderizador personalizado para mostrar cada entrada de forma clara y compacta. El usuario puede:
+
+\begin{itemize}
+    \item Visualizar entradas previas seleccionándolas desde el historial.
+    \item Reabrir la imagen correspondiente en una nueva \texttt{InternalWindow}.
+    \item Consultar la descripción asociada al pasar el cursor por encima.
+\end{itemize}
+
+Este historial se actualiza dinámicamente cada vez que se genera una nueva imagen.
+
+\subsubsection{Gestión de errores}
+
+Se han implementado cuadros de diálogo para mostrar mensajes claros ante situaciones como:
+
+\begin{itemize}
+    \item Prompt vacío o inválido.
+    \item Fallo de conexión con la API.
+    \item Token incorrecto.
+    \item Imagen generada no disponible en disco.
+    \item Estructura inválida del modelo cargado.
+\end{itemize}
+
+Estas validaciones mejoran la robustez y evitan que el sistema se bloquee ante entradas inesperadas.
+
+\subsubsection{Comunicación con el sistema generativo: descriptores de imagen}
+
+La integración entre la interfaz de usuario y la API REST del sistema generativo se estructura en torno a una jerarquía de clases que encapsulan el proceso de generación de imágenes a partir de texto. Esta arquitectura, representada en la \autoref{fig:clases-python}, permite abstraer los detalles técnicos de la comunicación con el backend, garantizando una interfaz uniforme y extensible.
+
+A continuación se describen las clases principales:
+
+\begin{itemize}
+    \item \textbf{\texttt{AbstractPromptImageDescriptor}}: clase base que define el comportamiento común a todos los descriptores basados en texto. Contiene los campos necesarios para almacenar el prompt, el nombre del modelo empleado y la imagen generada (de tipo \texttt{BufferedImage}). Define además el método abstracto \texttt{generate()}, que debe ser implementado por las subclases para llevar a cabo el proceso de generación correspondiente.
+
+    \item \textbf{\texttt{PromptGeneratedImageDescriptor}}: implementación para generación remota. El método \texttt{generate()} realiza una petición HTTP POST al endpoint \texttt{/images/generate/}, enviando los datos del prompt y del modelo. Como respuesta, recibe una ruta relativa de la imagen generada, que posteriormente se descarga mediante un GET a \texttt{/images/download/\{filename\}}.
+
+    \item \textbf{\texttt{PromptGeneratedImageDescriptorLocal}}: implementación para generación local, en entornos donde la API está desplegada en localhost. Aunque reutiliza la lógica de generación remota, modifica la URL base y simplifica el flujo de validación al no depender de red.
+\end{itemize}
+
+La clase \texttt{MainWindow} se encarga de instanciar el descriptor adecuado en función del modo seleccionado por el usuario (API local u online), sin que el resto de la aplicación tenga que preocuparse por los detalles de la comunicación. Esta separación de responsabilidades permite que otros componentes, como los encargados de mostrar o guardar imágenes, interactúen con los descriptores de forma homogénea a través del método \texttt{getGeneratedImage()}, que garantiza que la imagen ha sido generada y devuelve un objeto \texttt{BufferedImage} listo para ser usado.
+
+Gracias a esta arquitectura, el sistema es fácilmente extensible. Es posible incorporar nuevos tipos de descriptores, ya sea para otros modelos generativos o servicios externos, sin necesidad de modificar la lógica central de la aplicación. Además, al encapsular dentro de cada descriptor la gestión de errores y validaciones, se facilita el mantenimiento del código y se mejora la robustez del sistema.

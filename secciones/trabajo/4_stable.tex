@@ -21,7 +21,7 @@ El modelo se compone de varios módulos interconectados que trabajan en conjunto
 \textbf{CLIPTextModel (ViT-L/14)} & Codificador textual que convierte la descripción de entrada en una representación semántica densa utilizada como guía para el proceso de generación. \\
 \rowcolor{gray!10}
 \textbf{AutoencoderKL (VAE)} & Encargado de mapear imágenes reales al espacio latente y decodificar las imágenes generadas desde dicho espacio a píxeles reales. \\
-\textbf{Scheduler (DDIM)} & Controla el ruido introducido en cada paso y define la trayectoria de desdenoising, determinando el número de pasos y el ritmo de evolución. \\
+\textbf{Scheduler (DDIM)} & Controla el ruido en cada paso y define la trayectoria de desdenoising, determinando el número de pasos y el ritmo de evolución. \\
 \end{tabular}
 \caption{Resumen funcional de los componentes principales de Stable Diffusion}
 \label{tab:sd-components}
@@ -46,14 +46,14 @@ Como prueba exploratoria se utilizó el siguiente prompt genérico:
 \textit{``A beautiful landscape with mountains and a river''}
 \end{center}
 
-La imagen generada reflejó una notable fidelidad visual y semántica con respecto al texto, validando la capacidad del modelo para interpretar y representar con precisión elementos geográficos y naturales. Se observaron detalles como la correcta proporción entre los elementos, una distribución armónica del paisaje y un estilo visual coherente con la descripción dada.
+La imagen generada (Figura \ref{fig:original_image}) reflejó una notable fidelidad visual y semántica con respecto al texto, validando la capacidad del modelo para interpretar y representar con precisión elementos geográficos y naturales. Se observaron detalles como la correcta proporción entre los elementos, una distribución armónica del paisaje y un estilo visual coherente con la descripción dada.
 
 Este resultado preliminar puso de manifiesto la solidez del modelo en tareas de generación generalista, especialmente con prompts descriptivos de carácter amplio. Asimismo, sirvió como punto de partida para contrastar su rendimiento en escenarios más exigentes o especializados, como la generación de razas de perros o conceptos personalizados que requieren una mayor precisión semántica.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{original_output_image.png}
-\caption{Imagen generada con Stable Diffusion v1.4 a partir de un prompt general}
+\caption{Imagen generada con Stable Diffusion v1.4 a partir del prompt \textit{``A beautiful landscape with mountains and a river''}.}
 \label{fig:original_image}
 \end{figure}
 
@@ -96,13 +96,14 @@ Para llevar a cabo la especialización del modelo, se utilizó el siguiente conj
 \paragraph{\textbf{Resultados}} \mbox{}\\[0.5em]
 El proceso de especialización del modelo se completó en aproximadamente 5 horas, utilizando un servidor con dos GPUs NVIDIA TITAN RTX. El modelo resultante mostró una notable mejora en la generación de imágenes de perros: las imágenes generadas reflejaban con alta precisión los rasgos morfológicos de cada raza, se mantuvo la coherencia semántica con los nuevos \textit{prompts} específicos, y el entrenamiento resultó eficiente en tiempo y recursos, siendo compatible con entornos como Kaggle o servidores personales con GPU.
 
+Como se ilustra en la Figura \ref{fig:latent-space-optimization}, el modelo es capaz de generar imágenes realistas y coherentes a partir de descripciones detalladas, como el prompt \textit{``a photo of a golden retriever wearing sunglasses''}, capturando tanto la raza como los elementos distintivos mencionados en el texto.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.45\textwidth]{golden_retriever.png}
 \hfill
 \includegraphics[width=0.45\textwidth]{golden_retriever-2.png}
-\caption{Ejemplos de imágenes generadas tras la especialización del modelo.}
+\caption{Ejemplos de imágenes generadas tras la especialización del modelo con el prompt \textit{``a photo of a golden retriever wearing sunglasses''}.}
 \label{fig:latent-space-optimization}
 \end{figure}
 
