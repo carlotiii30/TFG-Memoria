@@ -1,0 +1,195 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{21}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Objetivos}{22}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Planificación inicial del trabajo}{24}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Planificación temporal}{24}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Fase 1: Recolección y análisis de requisitos}{24}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Fase 2: Diseño}{24}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Fase 3: Implementación y experimentación}{25}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Fase 4: Integración, pruebas y validación}{25}{subsubsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.5}Fase 5: Documentación y entrega}{25}{subsubsection.2.1.5}%
+\contentsline {subsubsection}{\numberline {2.1.6}Cronograma visual del proyecto}{25}{subsubsection.2.1.6}%
+\contentsline {subsection}{\numberline {2.2}Planificación de recursos}{26}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Planificación económica}{27}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Ajustes realizados sobre la planificación inicial}{27}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Metodología}{28}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Enfoque metodológico}{28}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Herramientas y tecnologías utilizadas}{28}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Datasets utilizados}{29}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Modelos y arquitecturas exploradas}{29}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Justificación técnica y decisiones adoptadas}{30}{subsection.3.5}%
+\contentsline {part}{I\hspace {1em}Desarrollo de modelos}{31}{part.1}%
+\contentsline {section}{\numberline {4}Estado del Arte}{32}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Antecedentes}{32}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Sistemas de Recuperación de Imágenes por Rasgos Visuales (CBIR)}{32}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Definición}{32}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Características}{32}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Medidas de similitud}{32}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Aplicaciones}{33}{subsubsection.4.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.5}Diferencias entre TBIR y CBIR}{33}{subsubsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.3}Descriptores visuales de bajo nivel}{34}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Representación visual según MPEG-7}{34}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Descriptor de color dominante}{35}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Descriptor de color escalable}{35}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.4}Descriptor de estructura de color}{35}{subsubsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.4}Redes Neuronales}{36}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Fundamentos}{36}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Funciones de activación}{36}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Tipos}{37}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Aplicaciones}{38}{subsubsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.5}Redes Generativas Adversarias (GAN)}{38}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}Componentes}{38}{subsubsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.2}Proceso de entrenamiento}{39}{subsubsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.3}Efectos del ruido en la generación de imágenes}{40}{subsubsection.4.5.3}%
+\contentsline {subsubsection}{\numberline {4.5.4}Aplicaciones}{40}{subsubsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.6}Redes Generativas Adversarias Condicionales (cGAN)}{41}{subsection.4.6}%
+\contentsline {subsubsection}{\numberline {4.6.1}Función de las Etiquetas}{41}{subsubsection.4.6.1}%
+\contentsline {subsubsection}{\numberline {4.6.2}Proceso de entrenamiento}{41}{subsubsection.4.6.2}%
+\contentsline {subsubsection}{\numberline {4.6.3}Aplicaciones}{42}{subsubsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.7}Redes Generativas Adversarias con Atención (AttnGAN)}{43}{subsection.4.7}%
+\contentsline {subsubsection}{\numberline {4.7.1}Arquitectura}{43}{subsubsection.4.7.1}%
+\contentsline {subsubsection}{\numberline {4.7.2}DAMSM}{43}{subsubsection.4.7.2}%
+\contentsline {subsubsection}{\numberline {4.7.3}Mecanismos de atención}{43}{subsubsection.4.7.3}%
+\contentsline {subsubsection}{\numberline {4.7.4}Métricas de evaluación}{44}{subsubsection.4.7.4}%
+\contentsline {subsubsection}{\numberline {4.7.5}Proceso de entrenamiento}{44}{subsubsection.4.7.5}%
+\contentsline {subsubsection}{\numberline {4.7.6}Aplicaciones}{44}{subsubsection.4.7.6}%
+\contentsline {subsection}{\numberline {4.8}Procesamiento del lenguaje natural}{45}{subsection.4.8}%
+\contentsline {subsubsection}{\numberline {4.8.1}Preparación del texto}{45}{subsubsection.4.8.1}%
+\contentsline {subsubsection}{\numberline {4.8.2}Tokenización}{45}{subsubsection.4.8.2}%
+\contentsline {subsubsection}{\numberline {4.8.3}Representación del texto}{45}{subsubsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.9}Generación de imágenes a partir de texto}{46}{subsection.4.9}%
+\contentsline {subsubsection}{\numberline {4.9.1}Ejemplos}{46}{subsubsection.4.9.1}%
+\contentsline {subsubsection}{\numberline {4.9.2}Consideraciones Éticas y de Privacidad}{46}{subsubsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.10}Modelos de Difusión y Stable Diffusion}{48}{subsection.4.10}%
+\contentsline {subsubsection}{\numberline {4.10.1}Fundamentos de los modelos de difusión}{48}{subsubsection.4.10.1}%
+\contentsline {subsubsection}{\numberline {4.10.2}Transición hacia la difusión latente}{48}{subsubsection.4.10.2}%
+\contentsline {subsubsection}{\numberline {4.10.3}Stable Diffusion}{48}{subsubsection.4.10.3}%
+\contentsline {subsubsection}{\numberline {4.10.4}Ventajas frente a otras arquitecturas}{49}{subsubsection.4.10.4}%
+\contentsline {subsubsection}{\numberline {4.10.5}Aplicaciones prácticas y uso en este trabajo}{50}{subsubsection.4.10.5}%
+\contentsline {subsubsection}{\numberline {4.10.6}Limitaciones y desafíos actuales}{50}{subsubsection.4.10.6}%
+\contentsline {section}{\numberline {5}Entrenamiento y experimentación con modelos generativos}{51}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Primera aproximación: GAN}{51}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Librerías, herramientas y datasets}{51}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Pruebas y resultados}{51}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3}Conclusión}{52}{subsubsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.2}Condicionalidad: cGAN}{53}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Librerías y Herramientas}{53}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Procesamiento de Texto}{53}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Pruebas preliminares con MNIST}{53}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Datasets}{54}{subsubsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.5}Pruebas y resultados}{54}{subsubsection.5.2.5}%
+\contentsline {subsubsection}{\numberline {5.2.6}Pruebas con diferentes números de épocas}{54}{subsubsection.5.2.6}%
+\contentsline {subsubsection}{\numberline {5.2.7}Visualización de pérdidas}{56}{subsubsection.5.2.7}%
+\contentsline {subsubsection}{\numberline {5.2.8}Conclusión}{56}{subsubsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.3}Atención textual: AttnGAN}{56}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Configuración del entrenamiento}{56}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Proceso de entrenamiento}{57}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3}Resultados y evaluación visual}{57}{subsubsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.4}Modelo final}{57}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Motivación para el uso de modelos preentrenados}{58}{subsubsection.5.4.1}%
+\contentsline {subsubsection}{\numberline {5.4.2}Descripción del modelo: Stable Diffusion}{58}{subsubsection.5.4.2}%
+\contentsline {paragraph}{\textbf {Componentes funcionales del modelo}}{58}{section*.21}%
+\contentsline {paragraph}{\textbf {Parámetros técnicos}}{58}{section*.23}%
+\contentsline {subsubsection}{\numberline {5.4.3}Evaluación inicial del modelo}{59}{subsubsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {5.4.4}Exploración de técnicas de optimización}{59}{subsubsection.5.4.4}%
+\contentsline {subsubsection}{\numberline {5.4.5}Optimización seleccionada: modificación del espacio latente}{60}{subsubsection.5.4.5}%
+\contentsline {paragraph}{\textbf {Configuración del proceso}}{60}{section*.25}%
+\contentsline {paragraph}{\textbf {Resultados}}{60}{section*.26}%
+\contentsline {subsection}{\numberline {5.5}Evaluación y resultados}{61}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Limitaciones del modelo base}{61}{subsubsection.5.5.1}%
+\contentsline {paragraph}{\textbf {Resultado con el modelo preentrenado}}{61}{section*.28}%
+\contentsline {paragraph}{\textbf {Resultado tras la especialización del modelo}}{62}{section*.30}%
+\contentsline {subsubsection}{\numberline {5.5.2}Evaluación de coherencia semántica con CLIP}{62}{subsubsection.5.5.2}%
+\contentsline {subsubsection}{\numberline {5.5.3}Análisis del coste de entrenamiento}{63}{subsubsection.5.5.3}%
+\contentsline {subsubsection}{\numberline {5.5.4}Evaluación de la generalización del modelo}{63}{subsubsection.5.5.4}%
+\contentsline {paragraph}{\textbf {Antes del entrenamiento especializado}}{63}{section*.35}%
+\contentsline {paragraph}{\textbf {Después del entrenamiento especializado}}{64}{section*.37}%
+\contentsline {paragraph}{\textbf {Conclusión}}{64}{section*.39}%
+\contentsline {subsection}{\numberline {5.6}Pruebas del sistema de recuperación de imágenes}{65}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Metodología de recuperación}{65}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Casos de prueba}{65}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Análisis de resultados}{67}{subsubsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.7}Conclusiones}{67}{subsection.5.7}%
+\contentsline {part}{II\hspace {1em}Desarrollo de software}{68}{part.2}%
+\contentsline {section}{\numberline {6}Requisitos y análisis}{69}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Especificación de requisitos}{69}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Requisitos funcionales}{69}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}Requisitos no funcionales}{70}{subsubsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.2}Historias de usuario}{71}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Modelo de caso de uso}{72}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Modelos de comportamiento}{73}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}Diagramas de secuencia}{74}{subsubsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.2}Trazabilidad entre casos de uso, historias de usuario y requisitos}{78}{subsubsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.3}Diagrama de actividad}{78}{subsubsection.6.4.3}%
+\contentsline {section}{\numberline {7}Diseño}{80}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Diseño de la arquitectura}{80}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Modelo conceptual}{80}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Diseño del modelo de clases}{81}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Modelo de clases en Java}{81}{subsubsection.7.3.1}%
+\contentsline {subsubsection}{\numberline {7.3.2}Modelo de clases en Python}{83}{subsubsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.4}Diseño de la interfaz}{83}{subsection.7.4}%
+\contentsline {subsubsection}{\numberline {7.4.1}Diagrama de flujo de interacción}{84}{subsubsection.7.4.1}%
+\contentsline {subsubsection}{\numberline {7.4.2}Bocetos}{84}{subsubsection.7.4.2}%
+\contentsline {subsubsection}{\numberline {7.4.3}Wireframes}{86}{subsubsection.7.4.3}%
+\contentsline {subsubsection}{\numberline {7.4.4}Prototipo en Figma}{88}{subsubsection.7.4.4}%
+\contentsline {subsubsection}{\numberline {7.4.5}Usabilidad}{88}{subsubsection.7.4.5}%
+\contentsline {section}{\numberline {8}Implementación}{90}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Implementación de la API para la Generación de Imágenes}{90}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Arquitectura de la API}{90}{subsubsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.2}Endpoints implementados}{91}{subsubsection.8.1.2}%
+\contentsline {paragraph}{Generación de imágenes}{91}{section*.78}%
+\contentsline {paragraph}{Gestión de modelos}{91}{section*.79}%
+\contentsline {subsubsection}{\numberline {8.1.3}Flujo de interacción}{92}{subsubsection.8.1.3}%
+\contentsline {subsubsection}{\numberline {8.1.4}Entorno y despliegue}{92}{subsubsection.8.1.4}%
+\contentsline {subsubsection}{\numberline {8.1.5}Conclusión}{92}{subsubsection.8.1.5}%
+\contentsline {subsection}{\numberline {8.2}Integración con la plataforma JMR (Java)}{92}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Arquitectura de integración}{92}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.2}Flujo de generación de imagen}{93}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.3}Selección y gestión de la API}{93}{subsubsection.8.2.3}%
+\contentsline {subsubsection}{\numberline {8.2.4}Consulta sin visualización}{93}{subsubsection.8.2.4}%
+\contentsline {subsubsection}{\numberline {8.2.5}Historial reutilizable}{93}{subsubsection.8.2.5}%
+\contentsline {subsubsection}{\numberline {8.2.6}Gestión de errores}{93}{subsubsection.8.2.6}%
+\contentsline {subsubsection}{\numberline {8.2.7}Comunicación con el sistema generativo: descriptores de imagen}{94}{subsubsection.8.2.7}%
+\contentsline {subsection}{\numberline {8.3}Consideraciones de seguridad y rendimiento}{94}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Gestión del entorno con Poetry}{94}{subsubsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.2}Contenerización y portabilidad con Docker}{95}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}Automatización del desarrollo con GitHub Workflows}{95}{subsubsection.8.3.3}%
+\contentsline {subsubsection}{\numberline {8.3.4}Seguridad en la API REST}{95}{subsubsection.8.3.4}%
+\contentsline {subsubsection}{\numberline {8.3.5}Optimización del rendimiento}{96}{subsubsection.8.3.5}%
+\contentsline {subsubsection}{\numberline {8.3.6}Preparación para producción y despliegue escalable}{96}{subsubsection.8.3.6}%
+\contentsline {subsubsection}{\numberline {8.3.7}Reflexión final}{97}{subsubsection.8.3.7}%
+\contentsline {subsection}{\numberline {8.4}Pruebas y validación}{97}{subsection.8.4}%
+\contentsline {subsubsection}{\numberline {8.4.1}Pruebas sobre la API REST}{97}{subsubsection.8.4.1}%
+\contentsline {subsubsection}{\numberline {8.4.2}Pruebas en la aplicación JMR}{98}{subsubsection.8.4.2}%
+\contentsline {subsubsection}{\numberline {8.4.3}Validación de consistencia e integridad}{99}{subsubsection.8.4.3}%
+\contentsline {subsubsection}{\numberline {8.4.4}Conclusión}{99}{subsubsection.8.4.4}%
+\contentsline {section}{\numberline {9}Manual de usuario}{100}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Introducción}{100}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Inicio de la aplicación}{100}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Descripción de la interfaz}{100}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Selección de API para generación de imágenes}{101}{subsection.9.4}%
+\contentsline {paragraph}{\textbf {Modo de selección}}{101}{section*.84}%
+\contentsline {paragraph}{\textbf {Uso de la Online API}}{101}{section*.86}%
+\contentsline {paragraph}{\textbf {Consideraciones adicionales}}{102}{section*.88}%
+\contentsline {subsection}{\numberline {9.5}Cómo generar una imagen}{102}{subsection.9.5}%
+\contentsline {paragraph}{\textbf {Paso 1: Acceder al generador}}{102}{section*.89}%
+\contentsline {subsection}{\numberline {9.6}Cómo generar una consulta sin mostrar la imagen}{104}{subsection.9.6}%
+\contentsline {paragraph}{\textbf {Paso 1: Escribir la descripción}}{104}{section*.94}%
+\contentsline {paragraph}{\textbf {Paso 2: Ejecutar la consulta}}{104}{section*.96}%
+\contentsline {paragraph}{\textbf {Paso 3: Visualización de resultados}}{105}{section*.98}%
+\contentsline {subsection}{\numberline {9.7}Reutilizar imágenes generadas}{105}{subsection.9.7}%
+\contentsline {subsection}{\numberline {9.8}Errores y soluciones comunes}{106}{subsection.9.8}%
+\contentsline {section}{\numberline {10}Conclusiones}{107}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Líneas futuras de trabajo}{107}{subsection.10.1}%
+\contentsline {part}{III\hspace {1em}Anexos}{108}{part.3}%
+\contentsline {section}{\numberline {A}Capturas del prototipo Figma}{109}{appendix.Alph1}%
+\contentsline {section}{\numberline {B}Glosario de términos}{113}{appendix.Alph2}%
+\contentsline {subsection}{\numberline {B.1}Modelado y entrenamiento}{113}{subsection.Alph2.1}%
+\contentsline {subsection}{\numberline {B.2}Redes neuronales y arquitectura}{113}{subsection.Alph2.2}%
+\contentsline {subsection}{\numberline {B.3}Datasets y datos}{114}{subsection.Alph2.3}%
+\contentsline {subsection}{\numberline {B.4}Interfaz y diseño}{115}{subsection.Alph2.4}%
+\contentsline {section}{\numberline {C}Código fuente del sistema desarrollado}{116}{appendix.Alph3}%
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {spanish}{}\relax 

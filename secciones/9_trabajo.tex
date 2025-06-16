@@ -39,6 +39,23 @@ El archivo \texttt{Dockerfile} define el entorno con precisión, incluyendo la i
 
 Esta estrategia prepara el sistema para un despliegue más robusto y escalable en futuras fases del proyecto.
 
+\subsubsection{Automatización del desarrollo con GitHub Workflows}
+
+Para facilitar el mantenimiento del proyecto, asegurar su correcto funcionamiento ante cambios y preparar su evolución hacia entornos más robustos, se ha integrado un sistema de automatización basado en \textbf{GitHub Workflows}. Esta funcionalidad forma parte de GitHub Actions, un conjunto de herramientas para integrar CI/CD (Integración y Entrega Continuas) directamente desde el repositorio.
+
+Se han definido distintos workflows automatizados para el repositorio principal del sistema generativo (\texttt{TFG}), entre los que destacan:
+
+\begin{itemize}
+    \item \textbf{Ejecutar tests automáticamente en cada \texttt{push} o \texttt{pull request}}: se lanza una validación con \texttt{pytest} sobre los módulos internos del servidor FastAPI, verificando la correcta respuesta ante entradas válidas, malformadas y modelos incompletos.
+    
+    \item \textbf{Revisión de estilo y formato}: se integró un paso de validación con \texttt{black} y \texttt{flake8} para asegurar la consistencia en el estilo de código y detectar errores sintácticos comunes.
+
+    \item \textbf{Instalación del entorno con Poetry}: el workflow incluye pasos para instalar las dependencias mediante \texttt{Poetry}, validando que el proyecto puede reproducirse correctamente en cualquier entorno limpio, tal como ocurriría en un servidor de producción.
+\end{itemize}
+
+Estos procesos contribuyen a mantener la calidad del código, detectar errores de forma temprana y garantizar la estabilidad del sistema ante futuras modificaciones. Además, sientan las bases para una futura entrega continua y despliegue automático en entornos reales.
+
+
 \subsubsection{Seguridad en la API REST}
 
 Dado que el sistema de generación se expone a través de una interfaz web (API REST), es fundamental considerar posibles vectores de ataque relacionados con el envío de solicitudes maliciosas, el uso no autorizado o la exposición de recursos sensibles. Aunque esta versión del sistema no incluye mecanismos avanzados de autenticación o autorización, se han implementado algunas medidas preliminares de validación estructural y se identifican los siguientes aspectos clave para futuras iteraciones:
@@ -58,7 +75,6 @@ Dado que el sistema de generación se expone a través de una interfaz web (API 
 En resumen, aunque el sistema aún no está preparado para un entorno productivo expuesto, ya se han incorporado medidas preventivas como la validación estructural de modelos, que garantiza la integridad mínima antes de permitir su ejecución. Estas medidas constituyen una base sobre la que construir mecanismos más robustos de autenticación, protección de recursos y resiliencia frente a ataques externos.
 
 Todas estas cuestiones han sido tenidas en cuenta de cara a un posible despliegue en producción. Se recomienda como trabajo futuro incorporar autenticación de usuarios, límites de uso, logs de auditoría y un tratamiento más robusto de la validación de parámetros para proteger el sistema frente a usos indebidos.
-
 
 \subsubsection{Optimización del rendimiento}
 
@@ -109,12 +125,6 @@ La API desarrollada con \texttt{FastAPI} cuenta con una interfaz interactiva (Sw
     \centering
     \includegraphics[width=0.6\textwidth]{api/list_models.png}
     \caption{Prueba del endpoint \texttt{GET /models/list/} desde Swagger}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{api/generate_image.png}
-    \caption{Prueba del endpoint \texttt{POST /images/generate/} con prompt textual}
 \end{figure}
 
 Además de estas pruebas manuales, se desarrollaron tests automáticos utilizando \texttt{pytest} para las funciones internas del servidor, incluyendo validaciones sobre el manejo de prompts, la existencia del modelo solicitado y la correcta generación y localización de las imágenes. Estos tests permitieron asegurar la estabilidad del sistema ante cambios futuros y facilitar su mantenimiento.
