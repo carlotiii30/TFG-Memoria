@@ -24,6 +24,20 @@
 \newblock {\latintext
   \btxurlfont{https://www.sciencedirect.com/science/article/pii/S0925231220319044}}.
 
+\bibitem {ARMANIOUS2020101684}
+\btxnamefont {\btxlastnamefont {Armanious}, Karim}, \btxnamefont {Chenming
+  \btxlastnamefont {Jiang}}, \btxnamefont {Marc \btxlastnamefont {Fischer}},
+  \btxnamefont {Thomas \btxlastnamefont {Küstner}}, \btxnamefont {Tobias
+  \btxlastnamefont {Hepp}}, \btxnamefont {Konstantin \btxlastnamefont
+  {Nikolaou}}, \btxnamefont {Sergios \btxlastnamefont {Gatidis}}\btxandcomma {}
+  \btxandlong {}\ \btxnamefont {Bin \btxlastnamefont {Yang}}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {Medgan: Medical image translation using
+  gans}{MedGAN: Medical image translation using GANs}}.
+\newblock \btxjournalfont {Computerized Medical Imaging and Graphics},
+  79:101684, 2020\ifbtxprintISSN {, \mbox{\btxISSN~\btxISSNfont {0895-6111}}}.
+\newblock {\latintext
+  \btxurlfont{https://www.sciencedirect.com/science/article/pii/S0895611119300990}}.
+
 \bibitem {redes-open}
 \btxnamefont {\btxlastnamefont {Huet}, Pablo}, 2023.
 \newblock {\latintext
