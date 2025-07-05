@@ -5,7 +5,7 @@ Este repositorio contiene la memoria del Trabajo de Fin de Grado (TFG). La memor
 ## Estructura del repositorio
 
 - `memoria.tex`: Archivo principal de la memoria.
-- `capitulos/`: Carpeta que contiene los capítulos de la memoria divididos en archivos `.tex`.
+- `secciones/`: Carpeta que contiene los capítulos de la memoria divididos en archivos `.tex`.
 - `imagenes/`: Imágenes utilizadas en la memoria.
 - `bibliografia.bib`: Archivo con las referencias bibliográficas.
 - Otros archivos auxiliares de configuración LaTeX.
